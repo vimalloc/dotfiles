@@ -8,9 +8,16 @@ email = "lily@informedk12.com"
 logm = ["log", "-r", "::main"]
 loga = ["log", "-r", "::visible_heads() ~ ::@ & mine() & author_date(after:\"2026-07-28\")"]
 
+# [ui]
+# pager = "delta"
+# diff-formatter = ":git"
+
 [ui]
-pager = "delta"
-diff-formatter = ":git"
+diff-formatter = "difftastic"
+
+[merge-tools.difftastic]
+program = "difft"
+diff-args = ["--color", "always", "--display", "side-by-side", "--background", "dark", "$left", "$right"]
 
 [fix.tools.rubocop]
 command = ["rubocop", "--stdin", "$path", "--autocorrect-all", "--force-exclusion",
