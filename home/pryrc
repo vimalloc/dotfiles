@@ -1,6 +1,6 @@
 Pry.config.editor = "nvim"
 
-Pry::Commands.block_command('edit', 'Persistent buffer') do
+Pry::Commands.block_command('editt', 'Persistent buffer') do
   # Needs to be in the code directory for all the cops and everything to work. Add
   # it to .git/info/exclude, or if we want we could do it to gitignore if everyone
   # else is cool with that. Or just move it to home directory if we don't want cops.
