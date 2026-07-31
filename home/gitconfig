@@ -1,0 +1,38 @@
+[core]
+    editor = nvim
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false
+[merge]
+    conflictstyle = zdiff3
+[diff]
+    colorMoved = default
+    algorithm = histogram
+[user]
+    name = Lily Acadia Gilbert
+    email = lily@informedk12.com
+[alias]
+    st = status
+    br = branch
+    co = checkout
+    ci = commit
+    cw = whatchanged
+    lb = !git reflog | egrep -io 'moving from ([^[:space:]]+)' | awk '{ print $3 }' | awk ' !x[$0]++' | egrep -v '^[a-f0-9]{40}$' | head -n100
+    coi = !git checkout $(git lb | fzf | xargs)
+[color]
+    ui = true
+[push]
+    default = simple
+    autoSetupRemote = true
+[pager]
+    branch = false
+    tag = false
+[init]
+  defaultBranch = main
+[rerere]
+  enabled = true
+[rebase]
+	updateRefs = true

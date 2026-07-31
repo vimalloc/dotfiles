@@ -1,0 +1,26 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+
+[user]
+name = "Lily Acadia Gilbert"
+email = "lily@informedk12.com"
+
+[aliases]
+logm = ["log", "-r", "::main"]
+loga = ["log", "-r", "::visible_heads() ~ ::@ & mine() & author_date(after:\"2026-07-28\")"]
+
+[ui]
+pager = "delta"
+diff-formatter = ":git"
+
+[fix.tools.rubocop]
+command = ["rubocop", "--stdin", "$path", "--autocorrect-all", "--force-exclusion",
+           "--format", "quiet", "--stderr"]
+patterns = ["glob:'**/*.rb'"]
+
+[fix.tools.haml-lint]
+command = ["haml-lint", "--stderr", "$path"]
+patterns = ["glob:'**/*.haml'"]
+
+[fix.tools.eslint]
+command = ["pnpm", "eslint", "--cache", "--fix-to-stdout", "--stdin", "--stdin-filename", "$path"]
+patterns = ["glob:'**/*.ts'", "glob:'**/*.tsx'"]

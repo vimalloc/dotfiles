@@ -1,0 +1,33 @@
+Pry.config.editor = "nvim"
+
+Pry::Commands.block_command('edit', 'Persistent buffer') do
+  # Needs to be in the code directory for all the cops and everything to work. Add
+  # it to .git/info/exclude, or if we want we could do it to gitignore if everyone
+  # else is cool with that. Or just move it to home directory if we don't want cops.
+  # Going back and forth on that one. Or handle frozen_string_literal and disabling
+  # some cops at the opening of vim level? I dunno. Or just disable diagnostics by
+  # default in this one case, if an env variable is set or something?
+  path = '.pry_scratch.rb'
+  FileUtils.touch(path) unless File.exist?(path)
+
+  # Need this if we want ruby-lsp functionality, otherwise it's looks at the wrong
+  # bundler context and cause ruby-lsp to error when trying to load (nvim only?)
+  Bundler.with_unbundled_env { system("#{Pry.config.editor} #{path}") }
+
+  File.foreach(path) do |line|
+    line = line.rstrip
+    next if line.starts_with?('#')
+    next if line.strip.blank?
+
+    # Need to put not-stripped line here, so that it preserves indentation on multi
+    # block lines
+    puts "#{pry_instance.select_prompt}#{line}"
+
+    # Need stripped line here so that if you pres `up` it doesn't include a newline
+    # that you have to deal with
+    pry_instance.eval(line)
+  end
+end
+
+# This might be the most heavily commented code I have written in years. Gross. But
+# it's not obvious (to me at least) why everything has to be the way it is.

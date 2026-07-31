@@ -1,0 +1,6 @@
+bundler
+foreman
+mailcatcher
+pry
+rubygems-bundler
+ruby-lsp
