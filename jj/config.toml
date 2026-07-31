@@ -6,11 +6,10 @@ email = "lily@informedk12.com"
 
 [aliases]
 logm = ["log", "-r", "::main"]
-loga = ["log", "-r", "::visible_heads() ~ ::@ & mine() & author_date(after:\"2026-07-28\")"]
+logd = ["log", "-r", "present(@) | ancestors(immutable_heads().., 2) | trunk()"]
 
-# [ui]
-# pager = "delta"
-# diff-formatter = ":git"
+[revsets]
+log = "(mutable() & mine() & author_date(after:\"2026-07-27\")) | trunk()"
 
 [ui]
 diff-formatter = "difftastic"
