@@ -11,12 +11,25 @@ logd = ["log", "-r", "present(@) | ancestors(immutable_heads().., 2) | trunk()"]
 [revsets]
 log = "(mutable() & mine() & author_date(after:\"2026-07-27\")) | trunk()"
 
-[ui]
-diff-formatter = "difftastic"
+# All of the next three entries are to get delta working in jjui as well as jj diff
+[[--scope]]
+"--when.commands" = ["diff", "show"]
 
-[merge-tools.difftastic]
-program = "difft"
-diff-args = ["--color", "always", "--display", "side-by-side", "--background", "dark", "$left", "$right"]
+[--scope.ui]
+pager = "delta"
+diff-formatter = "delta"
+
+# Get delta working in jjui
+[custom_commands]
+"delta" = { args = [
+  "util",
+  "exec",
+  "--",
+  "bash",
+  "-c",
+  """jj show -r $change_id --summary --git --color=always | delta --pager 'less -R'""",
+], show = "interactive" }
+
 
 [fix.tools.rubocop]
 command = ["rubocop", "--stdin", "$path", "--autocorrect-all", "--force-exclusion",
