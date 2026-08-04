@@ -11,6 +11,9 @@ logd = ["log", "-r", "present(@) | ancestors(immutable_heads().., 2) | trunk()"]
 [revsets]
 log = "(mutable() & mine() & author_date(after:\"2026-07-27\")) | trunk()"
 
+[ui]
+diff-editor = ":builtin"
+
 # All of the next three entries are to get delta working in jjui as well as jj diff
 [[--scope]]
 "--when.commands" = ["diff", "show"]
@@ -19,7 +22,6 @@ log = "(mutable() & mine() & author_date(after:\"2026-07-27\")) | trunk()"
 pager = "delta"
 diff-formatter = "delta"
 
-# Get delta working in jjui
 [custom_commands]
 "delta" = { args = [
   "util",
@@ -29,7 +31,6 @@ diff-formatter = "delta"
   "-c",
   """jj show -r $change_id --summary --git --color=always | delta --pager 'less -R'""",
 ], show = "interactive" }
-
 
 [fix.tools.rubocop]
 command = ["rubocop", "--stdin", "$path", "--autocorrect-all", "--force-exclusion",
