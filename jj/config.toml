@@ -7,9 +7,13 @@ email = "lily@informedk12.com"
 [aliases]
 logm = ["log", "-r", "::main"]
 logd = ["log", "-r", "present(@) | ancestors(immutable_heads().., 2) | trunk()"]
-push = ["util", "exec", "--", "bash", "-c", """
-  jj git push --bookmark $(jj log --no-graph -r @ -T 'bookmarks' | sed 's/*$//')
-"""]
+push = [
+  "util", "exec", "--", "bash", "-c", """
+  bookmark=$(jj log --no-graph -r "ancestors(@) & bookmarks()" -T 'bookmarks')
+  clean_bookmark=$("$bookmark" | sed 's/*$//')
+  jj git push --bookmark "$boommark"
+"""
+]
 
 [revsets]
 log = "(mutable() & mine() & author_date(after:\"2026-07-27\")) | trunk()"
