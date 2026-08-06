@@ -38,12 +38,9 @@ diff-formatter = "delta"
 
 [custom_commands]
 "delta" = { args = [
-  "util",
-  "exec",
-  "--",
-  "bash",
-  "-c",
-  """jj show -r $change_id --summary --git --color=always | delta --pager 'less -R'""",
+  "util", "exec", "--", "bash", "-c", """
+  jj show -r $change_id --summary --git --color=always | delta --pager 'less -R'
+  """,
 ], show = "interactive" }
 
 [fix.tools.rubocop]
