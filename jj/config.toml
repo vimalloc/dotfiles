@@ -5,13 +5,14 @@ name = "Lily Acadia Gilbert"
 email = "lily@informedk12.com"
 
 [aliases]
+advance = ["bookmark", "advance"]
 logm = ["log", "-r", "::main"]
 logd = ["log", "-r", "present(@) | ancestors(immutable_heads().., 2) | trunk()"]
 push = [
   "util", "exec", "--", "bash", "-c", """
   bookmark=$(jj log --no-graph -r "ancestors(@) & bookmarks()" -T 'bookmarks')
-  clean_bookmark=$("$bookmark" | sed 's/*$//')
-  jj git push --bookmark "$boommark"
+  clean_bookmark=$(echo "$bookmark" | sed 's/*$//')
+  jj git push --bookmark "$clean_bookmark"
 """
 ]
 
