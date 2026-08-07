@@ -20,7 +20,20 @@ auto-track-created-bookmarks = "*"
 [ui]
 diff-editor = ":builtin"
 
-# All of the next three entries are to get delta working in jjui as well as jj diff
+[fix.tools.rubocop]
+command = ["rubocop", "--stdin", "$path", "--autocorrect-all", "--force-exclusion",
+           "--format", "quiet", "--stderr"]
+patterns = ["glob:'**/*.rb'"]
+
+[fix.tools.haml-lint]
+command = ["haml-lint", "--stderr", "$path"]
+patterns = ["glob:'**/*.haml'"]
+
+[fix.tools.eslint]
+command = ["pnpm", "eslint", "--cache", "--fix-to-stdout", "--stdin", "--stdin-filename", "$path"]
+patterns = ["glob:'**/*.ts'", "glob:'**/*.tsx'"]
+
+# All of these next entries are to get delta working in jjui as well as jj diff
 [[--scope]]
 "--when.commands" = ["diff", "show"]
 
@@ -34,16 +47,3 @@ diff-formatter = "delta"
   jj show -r $change_id --summary --git --color=always | delta --pager 'less -R'
   """,
 ], show = "interactive" }
-
-[fix.tools.rubocop]
-command = ["rubocop", "--stdin", "$path", "--autocorrect-all", "--force-exclusion",
-           "--format", "quiet", "--stderr"]
-patterns = ["glob:'**/*.rb'"]
-
-[fix.tools.haml-lint]
-command = ["haml-lint", "--stderr", "$path"]
-patterns = ["glob:'**/*.haml'"]
-
-[fix.tools.eslint]
-command = ["pnpm", "eslint", "--cache", "--fix-to-stdout", "--stdin", "--stdin-filename", "$path"]
-patterns = ["glob:'**/*.ts'", "glob:'**/*.tsx'"]
