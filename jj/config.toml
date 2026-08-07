@@ -22,6 +22,9 @@ pr = [
   """
 ]
 
+[revsets]
+bookmark-advance-to = "coalesce((@ & ~empty()), @-)"
+
 [remotes.origin]
 auto-track-created-bookmarks = "*"
 
