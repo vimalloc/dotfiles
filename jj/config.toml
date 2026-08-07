@@ -14,6 +14,8 @@ pr = [
   """
 ]
 
+[remotes.origin]
+auto-track-created-bookmarks = "*"
 
 [ui]
 diff-editor = ":builtin"
