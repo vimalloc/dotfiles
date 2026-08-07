@@ -15,6 +15,7 @@ r = ["rebase"]
 s = ["squash"]
 si = ["squash", "-i"]
 logm = ["log", "-r", "::main"]
+p = ["git", "push"]
 pr = [
   "util", "exec", "--", "bash", "-c", """
   bookmark=$(jj log --no-graph -r "ancestors(@) & bookmarks()" -T 'bookmarks')
