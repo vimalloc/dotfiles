@@ -5,7 +5,15 @@ name = "Lily Acadia Gilbert"
 email = "lily@informedk12.com"
 
 [aliases]
-advance = ["bookmark", "advance"]
+a = ["bookmark", "advance"]
+bc = ["bookmark", "create"]
+c = ["commit"]
+ci = ["commit", "-i"]
+d = ["diff"]
+e = ["edit"]
+r = ["rebase"]
+s = ["squash"]
+si = ["squash", "-i"]
 logm = ["log", "-r", "::main"]
 pr = [
   "util", "exec", "--", "bash", "-c", """
