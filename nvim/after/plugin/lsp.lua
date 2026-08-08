@@ -60,7 +60,7 @@ vim.lsp.config('ruby_lsp', {
 vim.lsp.config('ts_ls', {capabilities = capabilities})
 vim.lsp.config('harper_ls', {
   capabilities = capabilities,
-  filetypes = { 'markdown', 'text', },
+  filetypes = { 'markdown', 'text', 'jjdescription' },
 })
 
 vim.lsp.enable({'eslint'})
