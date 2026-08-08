@@ -61,6 +61,13 @@ vim.lsp.config('ts_ls', {capabilities = capabilities})
 vim.lsp.config('harper_ls', {
   capabilities = capabilities,
   filetypes = { 'markdown', 'text', 'jjdescription' },
+  settings = {
+    ["harper-ls"] = {
+      linters = {
+        SpellCheck = false,
+      },
+    }
+  },
 })
 
 vim.lsp.enable({'eslint'})
