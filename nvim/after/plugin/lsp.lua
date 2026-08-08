@@ -33,13 +33,13 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition) -- Jump to method definition
 vim.keymap.set('n', 'gr', vim.lsp.buf.references) -- Find where a method is used
 
--- rename variable in file (TS only, not available in ruby-lsp)
+-- Rename variable in file (TS only, not available in ruby-lsp)
 vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
 
 -- Signatures
 vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
 
--- Setup the servers
+-- Set up the servers
 local capabilities = vim.tbl_deep_extend("force",
   vim.lsp.protocol.make_client_capabilities(),
   require('cmp_nvim_lsp').default_capabilities()
@@ -58,8 +58,13 @@ vim.lsp.config('ruby_lsp', {
 	},
 })
 vim.lsp.config('ts_ls', {capabilities = capabilities})
+vim.lsp.config('harper_ls', {
+  capabilities = capabilities,
+  filetypes = { 'markdown', 'text', },
+})
 
 vim.lsp.enable({'eslint'})
 vim.lsp.enable({'pyright'})
 vim.lsp.enable({'ruby_lsp'})
 vim.lsp.enable({'ts_ls'})
+vim.lsp.enable({'harper_ls'})

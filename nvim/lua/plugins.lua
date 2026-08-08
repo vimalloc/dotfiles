@@ -12,7 +12,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- All of my plugins. Note ath all requiring and configuration of plugins happen in
+-- All of my plugins. Note that all requiring and configuration of plugins happen in
 -- /after/plugins
 local autosave      = { "Pocco81/auto-save.nvim" }
 local catppuccin    = { "catppuccin/nvim", name = "catppuccin", priority = 1000 }
