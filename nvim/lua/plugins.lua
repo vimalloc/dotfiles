@@ -44,7 +44,7 @@ local telescope     = { "nvim-telescope/telescope.nvim",
                         branch = "0.1.x",
                         dependencies = { "nvim-lua/plenary.nvim" } }
 local telescope_fzf = { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
-local treesitter    = { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" }
+local treesitter    = { 'nvim-treesitter/nvim-treesitter', lazy = false, build = ':TSUpdate' }
 local vimtest       = { 'vim-test/vim-test' }
 
 require("lazy").setup({
