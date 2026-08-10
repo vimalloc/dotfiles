@@ -41,8 +41,13 @@ local obsidian      = { "epwalsh/obsidian.nvim",
                         },
                         dependencies = { "nvim-lua/plenary.nvim", "hrsh7th/nvim-cmp" } }
 local telescope     = { "nvim-telescope/telescope.nvim",
-                        branch = "0.1.x",
-                        dependencies = { "nvim-lua/plenary.nvim" } }
+                        version = "*",
+                        dependencies = {
+                          "nvim-lua/plenary.nvim",
+                          { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+                        }
+                      }
+
 local telescope_fzf = { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
 local treesitter    = { 'nvim-treesitter/nvim-treesitter', lazy = false, build = ':TSUpdate' }
 local vimtest       = { 'vim-test/vim-test' }
