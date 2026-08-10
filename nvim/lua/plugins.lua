@@ -23,6 +23,7 @@ local cmp_lsp       = { "hrsh7th/cmp-nvim-lsp", branch = "main" }
 local cmp_path      = { "hrsh7th/cmp-path", branch = "main" }
 local gototest      = { "git@github.com:InformedK12/gototest.nvim.git", branch = 'main' }
 local ibl           = { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }
+local diffconflicts = { "rafikdraoui/jj-diffconflicts", branch = "main" }
 local leap          = { url = "https://codeberg.org/andyg/leap.nvim", }
 local lspconfig     = { "neovim/nvim-lspconfig" }
 local luasnip       = { "L3MON4D3/LuaSnip",
@@ -60,6 +61,7 @@ require("lazy").setup({
   cmp_cmdline,
   cmp_lsp,
   cmp_path,
+  diffconflicts,
   gototest,
   ibl,
   leap,
