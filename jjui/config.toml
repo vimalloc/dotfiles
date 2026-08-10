@@ -1,7 +1,3 @@
 [revisions]
 revset = "(trunk()..@) | ::main"
 limit = 100
-
-# Add things like gg/G, q for get out of file, quit when not in file.
-# [[bindings]]
-# bindings_profile = "vim_bindings.toml"
