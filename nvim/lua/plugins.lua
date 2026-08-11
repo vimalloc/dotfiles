@@ -29,6 +29,17 @@ local lspconfig     = { "neovim/nvim-lspconfig" }
 local luasnip       = { "L3MON4D3/LuaSnip",
                         version = "v2.*",
                         build = "make install_jsregexp" }
+local neojj         = {
+                        "NicholasZolton/neojj",
+                        version = "^1.0.0",
+                        lazy = true,
+                        dependencies = {
+                          "nvim-lua/plenary.nvim",         -- required
+                          "esmuellert/codediff.nvim",      -- optional
+                          "nvim-telescope/telescope.nvim", -- optional
+                        },
+                        opts = { commit_view = { kind = "split", }, }
+                      }
 local obsidian      = { "epwalsh/obsidian.nvim",
                         lazy = true,
                         ft = "markdown",
@@ -67,6 +78,7 @@ require("lazy").setup({
   leap,
   lspconfig,
   luasnip,
+  neojj,
   obsidian,
   telescope,
   telescope_fzf,
