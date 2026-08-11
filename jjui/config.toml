@@ -1,3 +1,0 @@
-[revisions]
-revset = "(trunk()..@) | ::main"
-limit = 100
