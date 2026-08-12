@@ -12,6 +12,14 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- TODO:
+--   * Can we move all the `opts` here to their corresponding file
+--   * Instead of this unified = at the end, can we do better, like put the config
+--     on a new line instead of the equals?
+--   * Either figure out how to have codediff open in forward buffer, or have neojj
+--     open diff in backwards buffer. Currently editing file clobbers neojj
+--   
+--
 -- All of my plugins. Note that all requiring and configuration of plugins happen in
 -- /after/plugins
 local autosave      = { "Pocco81/auto-save.nvim" }
@@ -21,6 +29,7 @@ local cmp_buffer    = { "hrsh7th/cmp-buffer", branch = "main" }
 local cmp_cmdline   = { "hrsh7th/cmp-cmdline", branch = "main" }
 local cmp_lsp       = { "hrsh7th/cmp-nvim-lsp", branch = "main" }
 local cmp_path      = { "hrsh7th/cmp-path", branch = "main" }
+local codediff =
 local gototest      = { "git@github.com:InformedK12/gototest.nvim.git", branch = 'main' }
 local ibl           = { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }
 local diffconflicts = { "rafikdraoui/jj-diffconflicts", branch = "main" }
@@ -29,17 +38,34 @@ local lspconfig     = { "neovim/nvim-lspconfig" }
 local luasnip       = { "L3MON4D3/LuaSnip",
                         version = "v2.*",
                         build = "make install_jsregexp" }
-local neojj         = {
-                        "NicholasZolton/neojj",
-                        version = "^1.0.0",
-                        lazy = true,
-                        dependencies = {
-                          "nvim-lua/plenary.nvim",         -- required
-                          "esmuellert/codediff.nvim",      -- optional
-                          "nvim-telescope/telescope.nvim", -- optional
-                        },
-                        opts = { commit_view = { kind = "split", }, }
-                      }
+local neojj =
+{
+  "NicholasZolton/neojj",
+  version = "^1.0.0",
+  lazy = true,
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "esmuellert/codediff.nvim",
+    "nvim-telescope/telescope.nvim",
+  },
+  opts = {
+    commit_view = {
+      kind = "split",
+    },
+    sections = {
+      recent = {
+        folded = false,
+        hidden = false,
+      },
+      bookmarks = {
+        folded = false,
+        hidden = true,
+        show_deleted = false,
+        show_remote = false,
+      },
+    },
+  }
+}
 local obsidian      = { "epwalsh/obsidian.nvim",
                         lazy = true,
                         ft = "markdown",
