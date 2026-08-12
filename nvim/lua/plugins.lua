@@ -18,6 +18,7 @@ vim.opt.rtp:prepend(lazypath)
 --     on a new line instead of the equals?
 --   * Either figure out how to have codediff open in forward buffer, or have neojj
 --     open diff in backwards buffer. Currently editing file clobbers neojj
+--   * Remove bookmarks from neojj. Include current? Maybe just main?
 --   
 --
 -- All of my plugins. Note that all requiring and configuration of plugins happen in
@@ -30,6 +31,30 @@ local cmp_cmdline   = { "hrsh7th/cmp-cmdline", branch = "main" }
 local cmp_lsp       = { "hrsh7th/cmp-nvim-lsp", branch = "main" }
 local cmp_path      = { "hrsh7th/cmp-path", branch = "main" }
 local codediff =
+{
+  "esmuellert/codediff.nvim",
+  cmd = "CodeDiff",
+  opts = {
+    diff = {
+      layout = "inline",
+      cycle_hunks_across_files = true,
+    },
+    explorer = {
+      position = "bottom",
+      hidden = false, -- make true once everything works
+      view_mode = "tree",
+      focus_on_select = true,
+      auto_open_on_cursor = true,
+    },
+    keymaps = {
+      view = {
+        next_hunk = "<leader>j",
+        prev_hunk = "<leader>k",
+      }
+    },
+  }
+}
+
 local gototest      = { "git@github.com:InformedK12/gototest.nvim.git", branch = 'main' }
 local ibl           = { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }
 local diffconflicts = { "rafikdraoui/jj-diffconflicts", branch = "main" }
@@ -98,6 +123,7 @@ require("lazy").setup({
   cmp_cmdline,
   cmp_lsp,
   cmp_path,
+  codediff,
   diffconflicts,
   gototest,
   ibl,
