@@ -22,6 +22,16 @@ pr = [
   gh pr create --fill --draft --assignee "@me" --head "$bookmark"
   """
 ]
+lint = [
+  "util", "exec", "--", "sh", "-c", """
+    jj diff --name-only -r @ -- 'root-glob:**/*.rb' | \
+      xargs rubocop -A --force-exclusion
+    jj diff --name-only -r @ -- "root-glob:'**/*.{js,jsx,ts,tsx}'" | \
+      xargs ./node_modules/eslint/bin/eslint.js --cache --fix
+    jj diff --name-only -r @ -- 'root-glob:**/*.haml' | \
+      xargs haml-lint
+  """
+]
 
 [revsets]
 bookmark-advance-to = "coalesce((@ & ~empty()), @-)"
@@ -31,19 +41,6 @@ auto-track-created-bookmarks = "*"
 
 [ui]
 diff-editor = ":builtin"
-
-[fix.tools.rubocop]
-command = ["rubocop", "--stdin", "$path", "--autocorrect-all", "--force-exclusion",
-           "--format", "quiet", "--stderr"]
-patterns = ["glob:'**/*.rb'"]
-
-[fix.tools.haml-lint]
-command = ["haml-lint", "--stderr", "$path"]
-patterns = ["glob:'**/*.haml'"]
-
-[fix.tools.eslint]
-command = ["pnpm", "eslint", "--cache", "--fix-to-stdout", "--stdin", "--stdin-filename", "$path"]
-patterns = ["glob:'**/*.ts'", "glob:'**/*.tsx'"]
 
 # All of these next entries are to get delta working in jjui as well as jj diff
 [[--scope]]
