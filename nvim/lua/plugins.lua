@@ -19,7 +19,6 @@ vim.opt.rtp:prepend(lazypath)
 --   * Either figure out how to have codediff open in forward buffer, or have neojj
 --     open diff in backwards buffer. Currently editing file clobbers neojj
 --   * Remove bookmarks from neojj. Include current? Maybe just main?
---   
 --
 -- All of my plugins. Note that all requiring and configuration of plugins happen in
 -- /after/plugins
@@ -41,8 +40,7 @@ local codediff =
     },
     explorer = {
       position = "bottom",
-      hidden = false, -- make true once everything works
-      view_mode = "tree",
+      hidden = false,
       focus_on_select = true,
       auto_open_on_cursor = true,
     },
