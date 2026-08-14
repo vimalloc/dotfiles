@@ -105,7 +105,7 @@ vim.keymap.set("n", "z-", "z=")
 -- zw            -> Woops! Undo and remove the word from the dictionary
 
 -- Load plugins
-require('plugins')
+require('config.lazy')
 
 -- Color (must be after plugins)
 vim.cmd("colorscheme catppuccin-frappe")
