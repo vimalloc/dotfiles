@@ -41,19 +41,6 @@ bookmark-advance-to = "coalesce((@ & ~empty()), @-)"
 auto-track-created-bookmarks = "*"
 
 [ui]
-diff-editor = ":builtin"
-
-# All of these next entries are to get delta working in jjui as well as jj diff
-[[--scope]]
-"--when.commands" = ["diff", "show"]
-
-[--scope.ui]
 pager = "delta"
-diff-formatter = "delta"
-
-[custom_commands]
-"delta" = { args = [
-  "util", "exec", "--", "bash", "-c", """
-  jj show -r $change_id --summary --git --color=always | delta --pager 'less -R'
-  """,
-], show = "interactive" }
+diff-editor = ":builtin"
+diff-formatter = ":git"
