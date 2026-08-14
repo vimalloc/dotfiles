@@ -13,7 +13,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- TODO:
---   * Can we move all the `opts` here to their corresponding file
 --   * Instead of this unified = at the end, can we do better, like put the config
 --     on a new line instead of the equals?
 --   * Either figure out how to have codediff open in forward buffer, or have neojj
@@ -29,32 +28,10 @@ local cmp_buffer    = { "hrsh7th/cmp-buffer", branch = "main" }
 local cmp_cmdline   = { "hrsh7th/cmp-cmdline", branch = "main" }
 local cmp_lsp       = { "hrsh7th/cmp-nvim-lsp", branch = "main" }
 local cmp_path      = { "hrsh7th/cmp-path", branch = "main" }
-local codediff =
-{
-  "esmuellert/codediff.nvim",
-  cmd = "CodeDiff",
-  opts = {
-    diff = {
-      layout = "inline",
-      cycle_hunks_across_files = true,
-    },
-    explorer = {
-      position = "bottom",
-      hidden = false,
-      focus_on_select = true,
-      auto_open_on_cursor = true,
-    },
-    keymaps = {
-      view = {
-        next_hunk = "<leader>j",
-        prev_hunk = "<leader>k",
-      }
-    },
-  }
-}
+local codediff = { "esmuellert/codediff.nvim" }
 
 local gototest      = { "git@github.com:InformedK12/gototest.nvim.git", branch = 'main' }
-local ibl           = { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }
+local ibl           = { "lukas-reineke/indent-blankline.nvim", main = "ibl" }
 local diffconflicts = { "rafikdraoui/jj-diffconflicts", branch = "main" }
 local leap          = { url = "https://codeberg.org/andyg/leap.nvim", }
 local lspconfig     = { "neovim/nvim-lspconfig" }
@@ -65,41 +42,13 @@ local neojj =
 {
   "NicholasZolton/neojj",
   version = "^1.0.0",
-  lazy = true,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "esmuellert/codediff.nvim",
     "nvim-telescope/telescope.nvim",
   },
-  opts = {
-    commit_view = {
-      kind = "split",
-    },
-    sections = {
-      recent = {
-        folded = false,
-        hidden = false,
-      },
-      bookmarks = {
-        folded = false,
-        hidden = true,
-        show_deleted = false,
-        show_remote = false,
-      },
-    },
-  }
 }
 local obsidian      = { "epwalsh/obsidian.nvim",
-                        lazy = true,
-                        ft = "markdown",
-                        event = { "BufReadPre " .. vim.fn.expand "~" .. "/Documents/Dnd_Vault/**.md",
-                                  "BufNewFile " .. vim.fn.expand "~" .. "/Documents/Dnd_Vault/**.md" },
-                        opts = {
-                          workspaces = { { name = "dnd", path = "~/Documents/Dnd_Vault" } },
-                          completion = { nvim_cmp = true, min_chars = 2 },
-                          disable_frontmatter = true,
-                          ui = { enable = false },
-                        },
                         dependencies = { "nvim-lua/plenary.nvim", "hrsh7th/nvim-cmp" } }
 local telescope     = { "nvim-telescope/telescope.nvim",
                         version = "*",
