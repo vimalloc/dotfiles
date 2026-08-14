@@ -1,7 +1,14 @@
 return {
   "folke/flash.nvim",
   event = "VeryLazy",
-  opts = {},
+  opts = {
+    modes = {
+      char = {
+        -- Empty this to unbind builtin f/F/t/T handling (i hate this)
+        keys = {},
+      },
+    },
+  },
   keys = {
     { "f",
       mode = { "n", "x", "o" },
