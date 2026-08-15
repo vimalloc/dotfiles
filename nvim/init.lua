@@ -2,6 +2,13 @@
 vim.keymap.set({ "n", "v", "o" }, "<F1>", "<Esc>")
 vim.keymap.set("i", "<F1>", "<Esc>")
 
+-- Allow reopening file buffers after close (unsure about this one)
+vim.opt.shada:append("%")
+
+-- Do not persist marks on vim close (bad for immutable_marks)
+vim.opt.shada:append("'0")
+vim.opt.shada:remove("'100")
+
 -- Spacing
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2

@@ -3,6 +3,13 @@ vim.api.nvim_create_user_command("ImmutableMarks", function(mark_args)
   -- github repo that lazy pulls from. Maybe that would be good though? No idea,
   -- figure it out later
 
+  -- Bail if escape. Probably more codes I should bail on, but only one I can think
+  -- of for my work flow
+  local new_mark = vim.fn.getcharstr()
+  if string.byte(new_mark) == 27 then
+    return
+  end
+
   local buffer = vim.api.nvim_get_current_buf()
   local all_marks = vim.fn.getmarklist(buffer)
   local map_keys = function(mark_object)
@@ -10,8 +17,15 @@ vim.api.nvim_create_user_command("ImmutableMarks", function(mark_args)
   end
   local marks = vim.tbl_map(map_keys, all_marks)
 
-  mark_exists = vim.list_contains(marks, '\'.')
-  vim.print(mark_exists)
+  new_formatted_mark = "\'" .. new_mark
+  mark_exists = vim.list_contains(marks, new_formatted_mark)
+  if mark_exists then
+    vim.notify("Mark already exists. Use :delmarks! to remove", vim.log.levels.ERROR)
+    return
+  end
+
+  vim.print(new_formatted_mark)
+  -- Do the actual mark call!
 end, { desc = "Immutable Marks" })
 
 vim.keymap.set('n', 'm', '<cmd>ImmutableMarks<cr>')
