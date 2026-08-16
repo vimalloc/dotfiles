@@ -1,8 +1,4 @@
 vim.api.nvim_create_user_command("ImmutableMarks", function()
-  -- Use `dir` option with lazy to get this working without needing to to make a
-  -- github repo that lazy pulls from. Maybe that would be good though? No idea,
-  -- figure it out later
-
   -- Bail if escape. Probably more codes should be here, but only one I can think of
   local new_mark = vim.fn.getcharstr()
   if string.byte(new_mark) == 27 then
