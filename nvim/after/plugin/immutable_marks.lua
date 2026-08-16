@@ -1,10 +1,9 @@
-vim.api.nvim_create_user_command("ImmutableMarks", function(mark_args)
+vim.api.nvim_create_user_command("ImmutableMarks", function()
   -- Use `dir` option with lazy to get this working without needing to to make a
   -- github repo that lazy pulls from. Maybe that would be good though? No idea,
   -- figure it out later
 
-  -- Bail if escape. Probably more codes I should bail on, but only one I can think
-  -- of for my work flow
+  -- Bail if escape. Probably more codes should be here, but only one I can think of
   local new_mark = vim.fn.getcharstr()
   if string.byte(new_mark) == 27 then
     return
@@ -24,8 +23,8 @@ vim.api.nvim_create_user_command("ImmutableMarks", function(mark_args)
     return
   end
 
-  vim.print(new_formatted_mark)
-  -- Do the actual mark call!
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  vim.api.nvim_buf_set_mark(buffer, new_mark, row, col, {})
 end, { desc = "Immutable Marks" })
 
 vim.keymap.set('n', 'm', '<cmd>ImmutableMarks<cr>')
