@@ -19,32 +19,26 @@ logm = ["log", "-r", "::main"]
 p = ["git", "push", "--tracked"]
 pr = [
   "util", "exec", "--", "bash", "-c", """
-  BOOKMARK=$(jj log --no-graph -r "heads(ancestors(@) & bookmarks() ~ main)" -T 'bookmarks')
-  BOOKMARK=$(echo "$bookmark" | sed "s/\\*\\$//")
 
-  if [ -z "$BOOKMARK" ]; then
-    echo "No BOOKMARK found"
-    exit(1)
+  BOOKMARK=$(jj log --no-graph -r "heads(ancestors(@) & bookmarks() ~ main)" -T 'bookmarks')
+  BOOKMARK=$(echo "$BOOKMARK" | sed "s/\\*\\$//")
+
+  if [[ -z "$BOOKMARK" ]]; then
+    echo "No bookmark found"
+    exit 1
   fi
 
-  PARENT_BOOKMARK=$(jj log --no-graph -r "heads(ancestors(@, 2) & bookmarks() ~ main) -T 'boomkarks'"
-  PARENT_BOOKMARK=$(echo "$bookmark" | sed "s/\\*\\$//")
+  PARENT_BOOKMARK=$(
+    jj log \
+    --no-graph \
+    -r "heads((::@ & bookmarks()) ~ heads(::@ & bookmarks()) ~ main)" -T 'bookmarks'
+  )
+  PARENT_BOOKMARK=$(echo "$PARENT_BOOKMARK" | sed "s/\\*\\$//")
 
-  if [ -z "$BOOKMARK" ]; then
-    gh pr create \
-      --title "$(git log -1 --format=%s)" \
-      --body "$(git log -1 --format=%b)" \
-      --draft \
-      --assignee "@me" \
-      --head "$BOOKMARK"
+  if [[ -z "$PARENT_BOOKMARK" ]]; then
+    gh pr create --fill --draft --assignee "@me" --head "$BOOKMARK"
   else
-    gh pr create \
-      --title "$(git log -1 --format=%s)" \
-      --body "$(git log -1 --format=%b)" \
-      --draft \
-      --assignee "@me" \
-      --base "$PARENT_BOOKMARK" \
-      --head "$BOOKMARK"
+    gh pr create --fill --draft --assignee "@me" --base "$PARENT_BOOKMARK" --head "$BOOKMARK"
   fi
   """
 ]
