@@ -17,6 +17,7 @@ end, { desc = "toggle diagnostic" })
 
 return {
   "neovim/nvim-lspconfig",
+  lazy = false,
   keys = {
     { '<leader>at', '<cmd>DiagnosticToggle<cr>' },
 
