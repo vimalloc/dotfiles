@@ -19,9 +19,33 @@ logm = ["log", "-r", "::main"]
 p = ["git", "push", "--tracked"]
 pr = [
   "util", "exec", "--", "bash", "-c", """
-  bookmark=$(jj log --no-graph -r "ancestors(@) & bookmarks() ~ main" -T 'bookmarks')
-  bookmark=$(echo "$bookmark" | sed "s/\\*\\$//")
-  gh pr create --fill --draft --assignee "@me" --head "$bookmark"
+  BOOKMARK=$(jj log --no-graph -r "heads(ancestors(@) & bookmarks() ~ main)" -T 'bookmarks')
+  BOOKMARK=$(echo "$bookmark" | sed "s/\\*\\$//")
+
+  if [ -z "$BOOKMARK" ]; then
+    echo "No BOOKMARK found"
+    exit(1)
+  fi
+
+  PARENT_BOOKMARK=$(jj log --no-graph -r "heads(ancestors(@, 2) & bookmarks() ~ main) -T 'boomkarks'"
+  PARENT_BOOKMARK=$(echo "$bookmark" | sed "s/\\*\\$//")
+
+  if [ -z "$BOOKMARK" ]; then
+    gh pr create \
+      --title "$(git log -1 --format=%s)" \
+      --body "$(git log -1 --format=%b)" \
+      --draft \
+      --assignee "@me" \
+      --head "$BOOKMARK"
+  else
+    gh pr create \
+      --title "$(git log -1 --format=%s)" \
+      --body "$(git log -1 --format=%b)" \
+      --draft \
+      --assignee "@me" \
+      --base "$PARENT_BOOKMARK" \
+      --head "$BOOKMARK"
+  fi
   """
 ]
 lint = [
