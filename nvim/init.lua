@@ -43,30 +43,22 @@ vim.opt.cursorline = true
 -- Highlight trailing whitespace
 vim.api.nvim_set_hl(0, "ExtraWhitespace", { ctermbg = "green", bg = "green" })
 
-local function match_trailing(pattern)
-  if vim.w.extra_whitespace_match then
-    pcall(vim.fn.matchdelete, vim.w.extra_whitespace_match)
-  end
-  vim.w.extra_whitespace_match = vim.fn.matchadd("ExtraWhitespace", pattern)
-end
-
 vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "*",
   callback = function()
-    vim.api.nvim_set_hl(0, "ExtraWhitespace", { bg = "green" })
-  end,
+    vim.api.nvim_set_hl(0, "ExtraWhitespace", { ctermbg = "green", bg = "green" })
+  end
 })
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "*",
-  callback = function() match_trailing([[\s\+$]]) end,
+
+vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
+  callback = function()
+    vim.cmd([[match ExtraWhitespace /\s\+$/]])
+  end
 })
+
 vim.api.nvim_create_autocmd("InsertEnter", {
-  pattern = "*",
-  callback = function() match_trailing([[\s\+\%#\@<!$]]) end,
-})
-vim.api.nvim_create_autocmd("InsertLeave", {
-  pattern = "*",
-  callback = function() match_trailing([[\s\+$]]) end,
+  callback = function()
+    vim.cmd([[match ExtraWhitespace /\s\+\%#\@<!$/]])
+  end
 })
 
 -- Backup, swap, etc
