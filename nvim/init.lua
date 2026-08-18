@@ -113,3 +113,10 @@ require('config.lazy')
 
 -- Color (must be after plugins)
 vim.cmd("colorscheme catppuccin-frappe")
+
+-- Delete trailing whitespace. After plugins, something else that I don't care
+-- about (not even sure what) is using this key combo.
+vim.keymap.set('n', '<leader>wt', function ()
+  vim.cmd("%s/\\s\\+$//g")
+  vim.cmd("nohlsearch")
+end)
