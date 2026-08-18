@@ -20,7 +20,7 @@ p = ["git", "push", "--tracked"]
 pr = [
   "util", "exec", "--", "bash", "-c", """
 
-  BOOKMARK=$(jj log --no-graph -r "heads(ancestors(@) & bookmarks() ~ main)" -T 'bookmarks')
+  BOOKMARK=$(jj log --no-graph -r "heads((::@ & bookmarks()) ~ main ~ staging)" -T 'bookmarks')
   BOOKMARK=$(echo "$BOOKMARK" | sed "s/\\*\\$//")
 
   if [[ -z "$BOOKMARK" ]]; then
@@ -31,7 +31,7 @@ pr = [
   PARENT_BOOKMARK=$(
     jj log \
     --no-graph \
-    -r "heads((::@ & bookmarks()) ~ heads(::@ & bookmarks()) ~ main)" -T 'bookmarks'
+    -r "heads((::@ & bookmarks()) ~ heads(::@ & bookmarks()) ~ main ~ staging)" -T 'bookmarks'
   )
   PARENT_BOOKMARK=$(echo "$PARENT_BOOKMARK" | sed "s/\\*\\$//")
 
