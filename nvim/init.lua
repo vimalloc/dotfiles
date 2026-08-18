@@ -108,6 +108,9 @@ vim.cmd("colorscheme catppuccin-frappe")
 
 -- Delete trailing whitespace. After plugins, something else that I don't care
 -- about (not even sure what) is using this key combo.
+-- TODO - Make this a function that is set here, and can also be used by the on-save stuff
+--        as well as the paste stuff (that's better now that we have this command though.
+--      - Also see if we can find the plugin that overwrites this and change it
 vim.keymap.set('n', '<leader>wt', function ()
   vim.cmd("%s/\\s\\+$//g")
   vim.cmd("nohlsearch")
