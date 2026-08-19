@@ -1,3 +1,6 @@
+-- Leader <space>
+vim.g.mapleader = " "
+
 -- Unmap help key
 vim.keymap.set({ "n", "v", "o" }, "<F1>", "<Esc>")
 vim.keymap.set("i", "<F1>", "<Esc>")
@@ -61,6 +64,22 @@ vim.api.nvim_create_autocmd("InsertEnter", {
   end
 })
 
+-- Delete trailing whitespace. Considering running this code when closing a buffer
+local function deleteWhitespace(_opts)
+  vim.cmd("%s/\\s\\+$//g")
+  vim.cmd("nohlsearch")
+end
+
+vim.keymap.set('n', '<leader>wt', deleteWhitespace)
+
+vim.api.nvim_create_autocmd({ "BufUnload" }, {
+  buffer = 0,
+  callback = function()
+    deleteWhitespace()
+    vim.cmd("silent! update")
+  end
+})
+
 -- Backup, swap, etc
 vim.opt.backup = true
 vim.opt.writebackup = true
@@ -72,9 +91,6 @@ vim.opt.undodir = { vim.fn.expand("~/.cache/vim/undodir") }
 
 -- Ensure cache dirs exist
 vim.fn.mkdir(vim.fn.expand("~/.cache/vim/undodir"), "p")
-
--- Leader <space>
-vim.g.mapleader = " "
 
 -- Faster previous / next / delete buffers
 vim.keymap.set("n", "<leader>bp", "<cmd>bp<cr>")
@@ -106,12 +122,3 @@ require('config.lazy')
 -- Color (must be after plugins)
 vim.cmd("colorscheme catppuccin-frappe")
 
--- Delete trailing whitespace. After plugins, something else that I don't care
--- about (not even sure what) is using this key combo.
--- TODO - Make this a function that is set here, and can also be used by the on-save stuff
---        as well as the paste stuff (that's better now that we have this command though.
---      - Also see if we can find the plugin that overwrites this and change it
-vim.keymap.set('n', '<leader>wt', function ()
-  vim.cmd("%s/\\s\\+$//g")
-  vim.cmd("nohlsearch")
-end)
