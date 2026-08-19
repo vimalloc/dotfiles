@@ -12,7 +12,24 @@ ci = ["commit", "-i"]
 d = ["diff"]
 dm = ["diff", "-r", "main..@"]
 e = ["edit"]
-r = ["rebase", "-b", "bookmarks() ~ main & mine()", "-d", "main", "--skip-emptied"]
+gf = [
+  "util", "exec", "--", "sh", "-c", """
+
+  # CURRENT_MAIN=$(jj log --no-graph -r main -T change_id)
+  CURRENT_MAIN=lnxzokqq
+
+  CHANGE_IDS=$(
+    jj log \
+    --no-graph \
+    -r "(main:: ~ description('') ~ bookmarks()) | (roots(main..bookmarks()))" \
+    -T 'self.change_id().short() ++ "|"'
+  )
+  CHANGE_IDS=$(echo "$CHANGE_IDS" | sed "s/\\|\\$//")
+
+  jj git fetch
+  jj rebase -r $(CHANGE_IDS) -d main --skip-emptied
+  """
+ ]
 s = ["squash"]
 si = ["squash", "-i"]
 logm = ["log", "-r", "::main"]
