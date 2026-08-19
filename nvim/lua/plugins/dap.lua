@@ -24,13 +24,6 @@ return {
       require('dap.ui.widgets').hover()
     end, { desc = 'Debug: Hover Variables' })
 
-    -- Javascript / Typescript dap setup. No plugin for this so have to do it more
-    -- by hand. Also manually install vscode-js-debug, whicih is awful. It's an
-    -- excuse to consider moving to mason, at least for this, cause in theory they
-    -- do manage it which would be great.
-    local js_debug = vim.fn.expand("~/.local/share/vscode-js-debug/")
-    local js_debug_path = js_debug .. "vscode-js-debug-1.117.0-prebuilt/src/dapDebugServer.js"
-    local js_debug_adapter = {
     -- Configure ruby dap (removing entries I don't want)
     require("dap-ruby").setup()
     local wanted_ruby_entries = {
@@ -44,12 +37,21 @@ return {
         table.insert(good_ruby_configs, ruby_config)
       end
     end
+    dap.configurations['ruby'] = good_ruby_configs
+
+    -- Typescript dap setup. No plugin for this so have to do it more by hand.
+    -- Also manually install vscode-js-debug, which is awful. It's an excuse to
+    -- consider moving to mason, at least for this, cause in theory they do manage
+    -- it which would be great.
+    local ts_debug = vim.fn.expand("~/.local/share/vscode-js-debug/")
+    local ts_debug_path = ts_debug .. "vscode-js-debug-1.117.0-prebuilt/src/dapDebugServer.js"
+    local ts_debug_adapter = {
       type = "server",
       host = "localhost",
       port = "${port}",
-      executable = { command = "node", args = { js_debug_path, "${port}" } },
+      executable = { command = "node", args = { ts_debug_path, "${port}" } },
     }
-    dap.adapters["pwa-node"] = js_debug_adapter
+    dap.adapters["pwa-node"] = ts_debug_adapter
     dap.configurations["typescript"] = {
       {
         type = "pwa-node",
