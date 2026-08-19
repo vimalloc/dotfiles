@@ -59,19 +59,21 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 })
 
 -- Delete trailing whitespace. Considering running this code when closing a buffer
-local function deleteWhitespace(_opts)
+local function deleteWhitespace()
+  if vim.api.nvim_buf_get_name(0) == "" then
+    return nil
+  end
+
   vim.cmd("%s/\\s\\+$//g")
   vim.cmd("nohlsearch")
+  vim.cmd("silent! update")
 end
 
 vim.keymap.set('n', '<leader>wt', deleteWhitespace)
 
 vim.api.nvim_create_autocmd({ "BufUnload" }, {
   buffer = 0,
-  callback = function()
-    deleteWhitespace()
-    vim.cmd("silent! update")
-  end
+  callback = deleteWhitespace
 })
 
 -- Backup, swap, etc
