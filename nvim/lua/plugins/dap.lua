@@ -31,6 +31,19 @@ return {
     local js_debug = vim.fn.expand("~/.local/share/vscode-js-debug/")
     local js_debug_path = js_debug .. "vscode-js-debug-1.117.0-prebuilt/src/dapDebugServer.js"
     local js_debug_adapter = {
+    -- Configure ruby dap (removing entries I don't want)
+    require("dap-ruby").setup()
+    local wanted_ruby_entries = {
+      'run rspec current file',
+      'run rspec current_file:current_line',
+      'attach existing (port 38698)',
+    }
+    local good_ruby_configs = {}
+    for _, ruby_config in ipairs(dap.configurations['ruby']) do
+      if vim.list_contains(wanted_ruby_entries, ruby_config.name) then
+        table.insert(good_ruby_configs, ruby_config)
+      end
+    end
       type = "server",
       host = "localhost",
       port = "${port}",
