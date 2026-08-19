@@ -54,7 +54,7 @@ lint = [
 ]
 
 [revsets]
-bookmark-advance-to = "coalesce((@ & ~empty()), @-)"
+bookmark-advance-to = "latest(::@ & ~description(''))" # most recent with description
 
 [remotes.origin]
 auto-track-created-bookmarks = "*"
