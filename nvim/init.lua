@@ -87,7 +87,7 @@ vim.keymap.set("n", "<leader>ss", ":%!sql-formatter --config '{ \"keywordCase\":
 -- Faster no highlight search
 vim.keymap.set("n", "<leader>no", "<cmd>nohls<cr>")
 
--- Spellcheck (now only applies to comments in code!)
+-- Spellcheck (code comments and 'it' (etc) blocks
 vim.opt.spell = true
 
 -- Fix the mistype that I keep hitting when trying to fix a misspelled word

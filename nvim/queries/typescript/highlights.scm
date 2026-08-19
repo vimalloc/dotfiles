@@ -1,7 +1,6 @@
 ; extends
 
-; Spellcheck the description string of test-framework blocks, e.g.
-; it('does the thing', () => {}) / describe.only(`...`, fn)
+; Spell check things like `it` blocks in specs. Can I can't spell to save my life
 (call_expression
   function: (identifier) @_method
   arguments: (arguments
