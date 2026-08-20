@@ -12,11 +12,8 @@ ci = ["commit", "-i"]
 d = ["diff"]
 dm = ["diff", "-r", "main..@"]
 e = ["edit"]
-gf = [
+f = [
   "util", "exec", "--", "sh", "-c", """
-
-  # CURRENT_MAIN=$(jj log --no-graph -r main -T change_id)
-  CURRENT_MAIN=lnxzokqq
 
   CHANGE_IDS=$(
     jj log \
@@ -24,10 +21,12 @@ gf = [
     -r "(main:: ~ description('') ~ bookmarks()) | (roots(main..bookmarks()))" \
     -T 'self.change_id().short() ++ "|"'
   )
-  CHANGE_IDS=$(echo "$CHANGE_IDS" | sed "s/\\|\\$//")
+  CHANGE_IDS=$(echo "$CHANGE_IDS" | sed "s/|\\$//")
 
+  # Need to filter out any change ids that no longer exist cause I merged thenm
+  # after git fetch exist maybe?
   jj git fetch
-  jj rebase -r $(CHANGE_IDS) -d main --skip-emptied
+  jj rebase -r "$CHANGE_IDS" -d main --skip-emptied
   """
  ]
 s = ["squash"]
