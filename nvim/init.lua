@@ -95,7 +95,7 @@ vim.fn.mkdir(vim.fn.expand("~/.cache/vim/undodir"), "p")
 -- Faster previous / next / delete buffers
 vim.keymap.set("n", "<leader>bp", "<cmd>bp<cr>")
 vim.keymap.set("n", "<leader>bn", "<cmd>bn<cr>")
-vim.keymap.set("n", "<leader>bd", "<cmd>bd<cr>")
+vim.keymap.set("n", "<leader>bd", "<cmd>bd!<cr>")
 
 -- sql_formatter
 vim.keymap.set("n", "<leader>ss", ":%!sql-formatter --config '{ \"keywordCase\": \"upper\" }' --language postgresql %<CR>")
