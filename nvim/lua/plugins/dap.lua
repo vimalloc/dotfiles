@@ -6,6 +6,22 @@ return {
   config = function ()
     local dap = require("dap")
 
+    -- Get rid of extra instance variables and just paste the object, like in the
+    -- rails console. Things are a nightmare otherwise
+    local Session = require('dap.session')
+    local original_evaluate = Session.evaluate
+    function Session:evaluate(args, fn)
+      local context = (type(args) == 'table' and args.context) or 'repl'
+      return original_evaluate(self, args, function(err, resp)
+        if resp and context == 'repl' then
+          resp.variablesReference = 0
+          resp.indexedVariables = 0
+          resp.namedVariables = 0
+        end
+        fn(err, resp)
+      end)
+    end
+
     -- Keymaps: Maybe find better keys, keep doing 'bd' instead and closing window
     -- I know some configs suggested the F keys, maybe those??
     vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'Debug: Continue / Start' })
