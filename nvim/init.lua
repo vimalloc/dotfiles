@@ -64,6 +64,10 @@ local function deleteWhitespace()
     return nil
   end
 
+  if vim.api.nvim_get_option_value("buftype", { buf = 0 }) ~= "" then
+    return nil
+  end
+
   vim.cmd("%s/\\s\\+$//g")
   vim.cmd("nohlsearch")
   vim.cmd("silent! update")
