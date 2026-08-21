@@ -3,4 +3,9 @@ if status is-interactive
 
   set --global fish_key_bindings fish_default_key_bindings
   fish_config theme choose "catppuccin-frappe"
+
+  function sync_history --on-event fish_postexec
+    history save
+    history merge
+  end
 end
