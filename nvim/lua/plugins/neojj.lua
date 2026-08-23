@@ -12,6 +12,7 @@ return {
     { "<leader>gg", "<cmd>Neojj<cr>", desc = "Show Neojj UI" }
   },
   opts = {
+    codediff_tab_position = "before",
     commit_view = {
       kind = "split",
     },
