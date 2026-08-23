@@ -1,5 +1,6 @@
 languages = {
   "bash",
+  "dap_repl",
   "fish",
   "javascript",
   "jjdescription",
@@ -19,6 +20,7 @@ return {
   lazy = false,
   build = ':TSUpdate',
   config = function()
+    require('nvim-dap-repl-highlights').setup()
     require('nvim-treesitter').install(languages)
     require('nvim-treesitter').setup({})
 
@@ -28,6 +30,20 @@ return {
         vim.treesitter.start()
         vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end
+    })
+
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { 'ruby' },
+        callback = function() 
+          vim.treesitter.start()
+      end,
+    })
+
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { 'typescript' },
+        callback = function()
+          vim.treesitter.start()
+      end,
     })
   end
 }

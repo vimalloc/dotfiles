@@ -20,6 +20,7 @@
   "neotest-rspec": { "branch": "main", "commit": "7629f8c2837becb72090fbafce58506bb56a00f0" },
   "nvim-cmp": { "branch": "main", "commit": "2ffe79f1f021def8dd1fcd81deb16f1bb0d989f3" },
   "nvim-dap": { "branch": "master", "commit": "9e848e09a697ee95302a3ef2dd43fd6eb709e570" },
+  "nvim-dap-repl-highlights": { "branch": "master", "commit": "f31deba47fe3ee6ff8d2f13d9dbd06b2d1ae06b5" },
   "nvim-dap-ruby": { "branch": "main", "commit": "fa73da2f5124d10a4cd09ce589441b5901df706a" },
   "nvim-dap-view": { "branch": "main", "commit": "210b2c0e4acc08aad23fbd5a7989dd0169f716d0" },
   "nvim-lspconfig": { "branch": "master", "commit": "bff1bd61cb1455040533201ca1edf1e84efa578f" },
