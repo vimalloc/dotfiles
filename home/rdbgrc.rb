@@ -1,15 +1,13 @@
-# Make the ruby debugger gem call a pretty print function that will
-# cause models to be printed mult-line, just just as one string, which
-# is such a stupid default
 module DEBUGGER__
-  class LimitedPP
-    WRAP_WIDTH = 80 # Line length before splitting into newlines
+  CONFIG[:irb_console] = true
 
+  # Make the ruby debugger gem call a pretty print function that will cause models
+  # to be printed mult-line, just just as one string, which is such a stupid default
+  class LimitedPP
     def self.pp(obj, max = 80)
-      max = 5000 if max < 5000 # max line number before truncating (never!!)
-      out = self.new(max)
+      out = self.new(5000)
       catch out do
-        PP.pp(obj, out, WRAP_WIDTH)
+        PP.pp(obj, out, 80)
       end
       out.buf
     end
