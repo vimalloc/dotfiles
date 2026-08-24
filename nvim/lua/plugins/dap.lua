@@ -22,6 +22,24 @@ return {
       end)
     end
 
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "dap-repl",
+      callback = function()
+        vim.keymap.set({ "i", "n" }, "<C-d>", function()
+          dap.repl.close()
+        end, { buffer = true })
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "dap-repl",
+      callback = function()
+        vim.keymap.set({ "i", "n" }, "<C-l>", function()
+          dap.repl.clear()
+        end, { buffer = true })
+      end,
+    })
+
     -- Keymaps: Maybe find better keys, keep doing 'bd' instead and closing window
     -- I know some configs suggested the F keys, maybe those??
     vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'Debug: Continue / Start' })
