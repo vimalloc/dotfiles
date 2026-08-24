@@ -26,7 +26,7 @@ return {
       pattern = "dap-repl",
       callback = function()
         vim.keymap.set({ "i", "n" }, "<C-d>", function()
-          dap.repl.close()
+          dap.repl.close({ mode = "toggle" })
         end, { buffer = true })
       end,
     })
@@ -39,6 +39,16 @@ return {
         end, { buffer = true })
       end,
     })
+
+    dap.listeners.before.attach.lily_open_repl = function()
+      require("dap-view").open()
+      require("dap-view").jump_to_view('repl')
+    end
+
+    dap.listeners.before.launch.lily_open_repl = function()
+      require("dap-view").open()
+      require("dap-view").jump_to_view('repl')
+    end
 
     -- Keymaps: Maybe find better keys, keep doing 'bd' instead and closing window
     -- I know some configs suggested the F keys, maybe those??
