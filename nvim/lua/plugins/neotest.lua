@@ -11,6 +11,10 @@ return {
       adapters = {
         require("neotest-rspec")
       },
+      discovery = {
+        concurrent = 0,
+       enabled = false
+      },
     })
 
     -- TODO debug file isn't working
@@ -27,7 +31,7 @@ return {
     end, { desc = 'Run test file' })
 
     vim.keymap.set('n', '<leader>df', function()
-      require("neotest").run.run(vim.fn.expand("%"), {strategy = "dap"})
+      require("neotest").run.run({vim.fn.expand("%"), strategy = "dap"})
     end, { desc = 'Debug file' })
   end
 }

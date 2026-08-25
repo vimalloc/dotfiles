@@ -1,11 +1,10 @@
 return {
   'vim-test/vim-test',
 
-  keys = {
-    { '<leader>tn', '<cmd>TestNearest<CR>' },
-    { '<leader>tf', '<cmd>TestFile<CR>' },
-    { '<leader>tl', '<cmd>TestLast<CR>' },
-  },
+  -- keys = { { '<leader>tn', '<cmd>TestNearest<CR>' },
+  --   { '<leader>tf', '<cmd>TestFile<CR>' },
+  --   { '<leader>tl', '<cmd>TestLast<CR>' },
+  -- },
 
   config = function()
     -- Fix for readline issue with binding.pry
