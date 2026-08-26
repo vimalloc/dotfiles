@@ -3,7 +3,6 @@ return {
   branch = "main",
   config = function ()
     local cmp = require("cmp")
-    local cmp_dap = require("cmp_dap")
 
     cmp.setup({
       snippet = {
@@ -58,16 +57,6 @@ return {
     cmp.setup.cmdline(':', {
       mapping = cmp.mapping.preset.cmdline(),
       sources = cmp.config.sources({{ name = 'path' }}, {{ name = 'cmdline' }}),
-    })
-
-    cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-      sources = {{ name = "dap" }},
-    })
-
-    cmp.setup({
-      enabled = function()
-        return vim.bo[0].buftype ~= "prompt" or cmp_dap.is_dap_buffer()
-      end
     })
   end
 }

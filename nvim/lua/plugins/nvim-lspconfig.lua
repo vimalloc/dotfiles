@@ -53,7 +53,8 @@ return {
 
     vim.lsp.config('harper_ls', {
       capabilities = capabilities,
-      filetypes = { 'markdown', 'text', 'jjdescription' },
+      -- filetypes = { 'markdown', 'text', 'jjdescription' },
+      filetypes = { 'text', 'jjdescription' },
       settings = {
         ["harper-ls"] = {
           linters = {
