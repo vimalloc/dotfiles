@@ -44,15 +44,7 @@ return {
     { '<C-k>', vim.lsp.buf.signature_help, opts },
   },
   config = function()
-    local capabilities = vim.tbl_deep_extend("force",
-      vim.lsp.protocol.make_client_capabilities(),
-      require('cmp_nvim_lsp').default_capabilities()
-    )
-
-    vim.lsp.config('eslint', {capabilities = capabilities})
-
     vim.lsp.config('harper_ls', {
-      capabilities = capabilities,
       -- filetypes = { 'markdown', 'text', 'jjdescription' },
       filetypes = { 'text', 'jjdescription' },
       settings = {
@@ -64,10 +56,7 @@ return {
       },
     })
 
-    vim.lsp.config('pyright', {capabilities = capabilities})
-
     vim.lsp.config('ruby_lsp', {
-      capabilities = capabilities,
       init_options = {
         addonSettings = {
           ["Ruby LSP Rails"] = {
@@ -76,8 +65,6 @@ return {
         },
       },
     })
-
-    vim.lsp.config('ts_ls', {capabilities = capabilities})
 
     vim.lsp.enable({'eslint'})
     vim.lsp.enable({'harper_ls'})
