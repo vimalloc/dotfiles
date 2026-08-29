@@ -28,20 +28,12 @@ return {
      -- View to code errors
     { '<leader>e', vim.diagnostic.open_float },
 
-    -- Go to code errors
-    { '<leader>q', vim.diagnostic.setloclist },
-    { '[d', vim.diagnostic.goto_prev },
-    { ']d', vim.diagnostic.goto_next },
-
-    -- Jump to / from definitions
-    { 'gd', vim.lsp.buf.definition }, -- Jump to method definition
-    { 'gr', vim.lsp.buf.references }, -- Find where a method is used
-
-    -- Rename variable in file (TS only, not available in ruby-lsp
-    { '<leader>rn', vim.lsp.buf.rename, opts },
-
-    -- Signatures
-    { '<C-k>', vim.lsp.buf.signature_help, opts },
+  --   -- Jump to / from definitions
+  --   { 'gd', vim.lsp.buf.definition }, -- Jump to method definition
+  --   { 'gr', vim.lsp.buf.references }, -- Find where a method is used
+  --
+  --   -- Rename variable in file (TS only, not available in ruby-lsp
+  --   { '<leader>rn', vim.lsp.buf.rename, opts },
   },
   config = function()
     vim.lsp.config('harper_ls', {
