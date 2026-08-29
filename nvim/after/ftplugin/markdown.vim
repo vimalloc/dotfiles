@@ -25,4 +25,4 @@ noremap <silent> $ g$
 
 " TODO: can I set this to 2 only for when obsidian is loaded?
 " needed for obsidian stuff
-setlocal conceallevel=0
+setlocal conceallevel=2

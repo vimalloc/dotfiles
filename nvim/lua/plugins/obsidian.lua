@@ -1,10 +1,16 @@
 return {
-  "epwalsh/obsidian.nvim",
-  dependencies = { "nvim-lua/plenary.nvim", "hrsh7th/nvim-cmp" },
+  "obsidian-nvim/obsidian.nvim",
+  version = "*",
+
+  ---@module 'obsidian'
+  ---@type obsidian.config
   opts = {
-    workspaces = { { name = "dnd", path = "~/Documents/Dnd_Vault" } },
-    completion = { nvim_cmp = true, min_chars = 2 },
-    disable_frontmatter = true,
-    ui = { enable = false },
+    legacy_commands = false, -- this will be removed in 4.0.0
+    workspaces = {
+      {
+        name = "Valeria",
+        path = "~/Documents/Dnd_Vault",
+      },
+    },
   },
 }
