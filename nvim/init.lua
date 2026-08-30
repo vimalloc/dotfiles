@@ -121,4 +121,3 @@ require('config.lazy')
 
 -- Color (must be after plugins)
 vim.cmd("colorscheme catppuccin-frappe")
-
