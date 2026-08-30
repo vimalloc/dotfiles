@@ -68,7 +68,7 @@ local function deleteWhitespace()
     return nil
   end
 
-  vim.cmd("%s/\\s\\+$//g")
+  vim.cmd("%s/\\s\\+$//ge")
   vim.cmd("nohlsearch")
   vim.cmd("silent! update")
 end
