@@ -13,7 +13,24 @@ return {
       enabled = true,
       timeout = 3000,
     },
-    picker = { enabled = true },
+    picker = {
+      enabled = true,
+      actions = {
+        select = function(picker)
+          Snacks.picker.actions.select_and_next(picker)
+          Snacks.picker.actions.list_up(picker)
+        end,
+      },
+      win = {
+        input = {
+          keys = {
+            ["<Tab>"] = { "list_down", mode = { "i", "n" } },
+            ["<S-Tab>"] = { "list_up", mode = { "i", "n" } },
+            ["<Space>"] = { "select",  mode = { "n" } },
+          },
+        },
+      },
+    },
     quickfile = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = true },
