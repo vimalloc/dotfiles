@@ -1,7 +1,3 @@
--- Ideas
---   to_i => Integer
---   find => where
-
 return {
   "monaqa/dial.nvim",
   keys = {

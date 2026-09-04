@@ -21,7 +21,7 @@ return {
       end,
     })
 
-    -- TODO - Auto open normal dap repl on start
+    -- TODO - Auto open normal dap repl on start?
     -- dap.listeners.before.attach.lily_open_repl = function()
     --   require("dap-view").open()
     --   require("dap-view").jump_to_view('repl')
@@ -32,14 +32,12 @@ return {
     --   require("dap-view").jump_to_view('repl')
     -- end
 
-    -- TODO - Move these over to vimtest? Don't think they will get much use here
     vim.keymap.set('n', '<Right>', dap.step_into, { desc = 'Debug: Step Over' })
     vim.keymap.set('n', '<Left>', dap.step_out, { desc = 'Debug: Step Out' })
     vim.keymap.set('n', '<Down>', dap.step_over, { desc = 'Debug: Step Into' })
     vim.keymap.set('n', '<Up>', dap.restart_frame, { desc = 'Debug: Step Into' })
-
-    vim.keymap.set('n', '<leader>dt', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
-    vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'Debug: Continue / Start' })
+    vim.keymap.set('n', '<leader>dt', dap.toggle_breakpoint, { desc =  'Breakpoint' })
+    vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'Continue / Start' })
     vim.keymap.set({'n', 'v'}, '<leader>dr', function()
       dap.repl.open()
     end, { desc = 'Open Repl' })

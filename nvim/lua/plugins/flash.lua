@@ -4,8 +4,7 @@ return {
   opts = {
     modes = {
       char = {
-        -- Empty this to unbind builtin f/F/t/T handling (i hate this)
-        keys = {},
+        keys = {}, -- Empty this to unbind builtin f/F/t/T handling (i hate this)
       },
     },
   },

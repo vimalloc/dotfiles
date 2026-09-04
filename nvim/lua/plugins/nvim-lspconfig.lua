@@ -6,19 +6,21 @@ vim.diagnostic.config {
 }
 
 vim.api.nvim_create_user_command("DiagnosticToggle", function()
-	local config = vim.diagnostic.config
-	local vt = config().virtual_text
-	config {
-		virtual_text = not vt,
-		underline = not vt,
-		signs = true,
-	}
+  local config = vim.diagnostic.config
+  local vt = config().virtual_text
+  config {
+    virtual_text = not vt,
+    underline = not vt,
+    signs = true,
+  }
 end, { desc = "toggle diagnostic" })
 
 return {
   "neovim/nvim-lspconfig",
   lazy = false,
   keys = {
+  --   -- Jump to / from definitions handled by snacks
+
     { '<leader>at', '<cmd>DiagnosticToggle<cr>' },
 
     -- Code formatting stuff
@@ -27,16 +29,10 @@ return {
 
      -- View to code errors
     { '<leader>e', vim.diagnostic.open_float },
-
-  --   -- Jump to / from definitions
-  --   { 'gd', vim.lsp.buf.definition }, -- Jump to method definition
-  --   { 'gr', vim.lsp.buf.references }, -- Find where a method is used
-  --
-  --   -- Rename variable in file (TS only, not available in ruby-lsp
-  --   { '<leader>rn', vim.lsp.buf.rename, opts },
   },
   config = function()
     vim.lsp.config('harper_ls', {
+      -- TODO - Figure out how to make this not suck for some files
       -- filetypes = { 'markdown', 'text', 'jjdescription' },
       filetypes = { 'text', 'jjdescription' },
       settings = {

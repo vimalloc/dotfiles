@@ -27,20 +27,20 @@ return {
       callback = function()
         vim.treesitter.start()
         vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-      end
+      end,
     })
 
     vim.api.nvim_create_autocmd('FileType', {
       pattern = { 'ruby' },
-        callback = function()
-          vim.treesitter.start()
+      callback = function()
+        vim.treesitter.start()
       end,
     })
 
     vim.api.nvim_create_autocmd('FileType', {
       pattern = { 'typescript' },
-        callback = function()
-          vim.treesitter.start()
+      callback = function()
+        vim.treesitter.start()
       end,
     })
   end
