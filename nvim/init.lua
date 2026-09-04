@@ -97,6 +97,7 @@ vim.keymap.set("n", "<leader>bp", "<cmd>bp<cr>")
 vim.keymap.set("n", "<leader>bn", "<cmd>bn<cr>")
 vim.keymap.set("n", "<leader>bd", "<cmd>bd!<cr>")
 
+-- TODO - make this work for non persistent file
 -- sql_formatter
 vim.keymap.set("n", "<leader>ss", ":%!sql-formatter --config '{ \"keywordCase\": \"upper\" }' --language postgresql %<CR>")
 
@@ -109,6 +110,9 @@ vim.opt.spell = true
 -- Fix the mistype that I keep hitting when trying to fix a misspelled word
 vim.keymap.set("n", "z-", "z=")
 
+-- Load plugins
+require('config.lazy')
+
 -- Misc keybindings to remember
 -- ctrl-i        -> Go to previous jump
 -- ctrl-o        -> Go to next jump
@@ -116,8 +120,3 @@ vim.keymap.set("n", "z-", "z=")
 -- zg            -> Good word: Add the word under the cursor to the dictionary
 -- zw            -> Woops! Undo and remove the word from the dictionary
 
--- Load plugins
-require('config.lazy')
-
--- Color (must be after plugins)
-vim.cmd("colorscheme catppuccin-frappe")
