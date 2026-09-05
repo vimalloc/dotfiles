@@ -21,16 +21,14 @@ return {
       end,
     })
 
-    -- TODO - Auto open normal dap repl on start?
-    -- dap.listeners.before.attach.lily_open_repl = function()
-    --   require("dap-view").open()
-    --   require("dap-view").jump_to_view('repl')
-    -- end
-    --
-    -- dap.listeners.before.launch.lily_open_repl = function()
-    --   require("dap-view").open()
-    --   require("dap-view").jump_to_view('repl')
-    -- end
+    -- Not sure why we need both. Don't care enough to fix right now
+    dap.listeners.before.attach.lily_open_repl = function()
+      dap.repl.open()
+    end
+
+    dap.listeners.before.launch.lily_open_repl = function()
+      dap.repl.open()
+    end
 
     vim.keymap.set('n', '<Right>', dap.step_into, { desc = 'Debug: Step Over' })
     vim.keymap.set('n', '<Left>', dap.step_out, { desc = 'Debug: Step Out' })

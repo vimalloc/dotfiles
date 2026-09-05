@@ -19,7 +19,7 @@ return {
   "neovim/nvim-lspconfig",
   lazy = false,
   keys = {
-  --   -- Jump to / from definitions handled by snacks
+    -- Jump to / from definitions handled by snacks
 
     { '<leader>at', '<cmd>DiagnosticToggle<cr>' },
 
@@ -32,9 +32,7 @@ return {
   },
   config = function()
     vim.lsp.config('harper_ls', {
-      -- TODO - Figure out how to make this not suck for some files
-      -- filetypes = { 'markdown', 'text', 'jjdescription' },
-      filetypes = { 'text', 'jjdescription' },
+      filetypes = { 'markdown', 'text', 'jjdescription' },
       settings = {
         ["harper-ls"] = {
           linters = {
