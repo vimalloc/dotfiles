@@ -97,10 +97,6 @@ vim.keymap.set("n", "<leader>bp", "<cmd>bp<cr>")
 vim.keymap.set("n", "<leader>bn", "<cmd>bn<cr>")
 vim.keymap.set("n", "<leader>bd", "<cmd>bd!<cr>")
 
--- TODO - make this work for non persistent file
--- sql_formatter
-vim.keymap.set("n", "<leader>ss", ":%!sql-formatter --config '{ \"keywordCase\": \"upper\" }' --language postgresql %<CR>")
-
 -- Faster no highlight search
 vim.keymap.set("n", "<leader>no", "<cmd>nohls<cr>")
 
