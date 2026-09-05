@@ -1,3 +1,13 @@
+local obsidian_group = vim.api.nvim_create_augroup("ObsidianVault", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+  group = obsidian_group,
+  pattern = vim.fn.expand("~") .. "/Documents/Dnd_Vault/*.md",
+  callback = function()
+    vim.opt_local.conceallevel = 2
+  end,
+})
+
 return {
   "obsidian-nvim/obsidian.nvim",
   version = "*",
