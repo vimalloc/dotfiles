@@ -8,7 +8,7 @@ return {
     { '<leader>f', function() vim.lsp.buf.format { async = true } end },
     { '<leader>ca', vim.lsp.buf.code_action },
 
-     -- View to code errors
+     -- View errors
     { '<leader>e', vim.diagnostic.open_float },
   },
   config = function()
