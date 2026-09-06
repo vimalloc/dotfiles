@@ -6,14 +6,16 @@ vim.api.nvim_create_user_command("SqlFormatter", function()
               --language postgresql"
 
   local output = vim.fn.system(cmd, text)
+  local formatted_output = vim.split(output, "\n")
   local exit_code = vim.v.shell_error
+
   if exit_code != 0 then
-    vim.notify("Could ot format sql", vim.log.levels.ERROR)
+    local error = "Failed to format the SQL:\n" .. formatted_output
+    vim.notify(error, vim.log.levels.ERROR)
     return
   end
 
-  local formatted_sql = vim.split(output, "\n")
-  vim.api.nvim_buf_set_lines(0, 0, -1, false, formatted_sql)
+  vim.api.nvim_buf_set_lines(0, 0, -1, false, formatted_output)
   vim.bo.filetype = "sql"
 end, { desc = "SQL Formatter" })
 
