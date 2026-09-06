@@ -1,27 +1,8 @@
--- Inline diagnostic toggle
-vim.diagnostic.config {
-  virtual_text = true,
-  underline = true,
-  signs = true,
-}
-
-vim.api.nvim_create_user_command("DiagnosticToggle", function()
-  local config = vim.diagnostic.config
-  local vt = config().virtual_text
-  config {
-    virtual_text = not vt,
-    underline = not vt,
-    signs = true,
-  }
-end, { desc = "toggle diagnostic" })
-
 return {
   "neovim/nvim-lspconfig",
   lazy = false,
   keys = {
     -- Jump to / from definitions handled by snacks
-
-    { '<leader>at', '<cmd>DiagnosticToggle<cr>' },
 
     -- Code formatting stuff
     { '<leader>f', function() vim.lsp.buf.format { async = true } end },
