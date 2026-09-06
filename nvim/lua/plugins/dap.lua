@@ -21,19 +21,23 @@ return {
       end,
     })
 
-    -- Not sure why we need both. Don't care enough to fix right now
+    -- TODO: See if/which event we can attach these two without needing to do both of them
     dap.listeners.before.attach.lily_open_repl = function()
       dap.repl.open()
+      vim.keymap.set('n', '<Right>', dap.step_into, { desc = 'Debug: Step Over' })
+      vim.keymap.set('n', '<Left>', dap.step_out, { desc = 'Debug: Step Out' })
+      vim.keymap.set('n', '<Down>', dap.step_over, { desc = 'Debug: Step Into' })
+      vim.keymap.set('n', '<Up>', dap.restart_frame, { desc = 'Debug: Step Into' })
     end
 
     dap.listeners.before.launch.lily_open_repl = function()
       dap.repl.open()
+      vim.keymap.set('n', '<Right>', dap.step_into, { desc = 'Debug: Step Over' })
+      vim.keymap.set('n', '<Left>', dap.step_out, { desc = 'Debug: Step Out' })
+      vim.keymap.set('n', '<Down>', dap.step_over, { desc = 'Debug: Step Into' })
+      vim.keymap.set('n', '<Up>', dap.restart_frame, { desc = 'Debug: Step Into' })
     end
 
-    vim.keymap.set('n', '<Right>', dap.step_into, { desc = 'Debug: Step Over' })
-    vim.keymap.set('n', '<Left>', dap.step_out, { desc = 'Debug: Step Out' })
-    vim.keymap.set('n', '<Down>', dap.step_over, { desc = 'Debug: Step Into' })
-    vim.keymap.set('n', '<Up>', dap.restart_frame, { desc = 'Debug: Step Into' })
     vim.keymap.set('n', '<leader>dt', dap.toggle_breakpoint, { desc =  'Breakpoint' })
     vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'Continue / Start' })
     vim.keymap.set({'n', 'v'}, '<leader>dr', function()
