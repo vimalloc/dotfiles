@@ -15,7 +15,9 @@ return {
     input = { enabled = true },
     notifier = {
       enabled = true,
-      timeout = 3000,
+      timeout = 10000,
+      width = { min = 40, max = 0.6 },
+      height = { min = 1, max = 0.8 },
     },
     picker = {
       enabled = true,
@@ -40,6 +42,17 @@ return {
     scroll = { enabled = true },
     statuscolumn = { enabled = false },
     words = { enabled = true },
+    styles = {
+      notification = {
+        wo = {
+          wrap = true,
+        },
+      },
+      notification_history = {
+        width = 0.8,
+        height = 0.8,
+      },
+    },
   },
   keys = {
     -- Top Pickers & Explorer
