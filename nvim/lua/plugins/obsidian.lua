@@ -23,11 +23,14 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
   end,
 })
 
+local note_id_func = function(title) return title end
+
 return {
   "obsidian-nvim/obsidian.nvim",
   version = "*",
   opts = {
     legacy_commands = false, -- this will be removed in 4.0.0
-    workspaces = WORKSPACES
+    workspaces = WORKSPACES,
+    note_id_func = note_id_func,
   },
 }
