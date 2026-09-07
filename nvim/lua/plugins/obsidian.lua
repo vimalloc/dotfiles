@@ -1,8 +1,23 @@
-local obsidian_group = vim.api.nvim_create_augroup("ObsidianVault", { clear = true })
+local WORKSPACES = {
+  {
+    name = "Valeria",
+    path = vim.fn.expand("~") .. "/Documents/Dnd_Vault",
+  },
+  {
+    name = "Books",
+    path = vim.fn.expand("~") .. "/Documents/books",
+  },
+}
+
+local PATTERNS = vim.tbl_map(
+  function(workspace)
+    return workspace.path .. "/*.md"
+  end,
+  WORKSPACES
+)
 
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-  group = obsidian_group,
-  pattern = vim.fn.expand("~") .. "/Documents/Dnd_Vault/*.md",
+  pattern = PATTERNS,
   callback = function()
     vim.opt_local.conceallevel = 2
   end,
@@ -13,11 +28,6 @@ return {
   version = "*",
   opts = {
     legacy_commands = false, -- this will be removed in 4.0.0
-    workspaces = {
-      {
-        name = "Valeria",
-        path = "~/Documents/Dnd_Vault",
-      },
-    },
+    workspaces = WORKSPACES
   },
 }
