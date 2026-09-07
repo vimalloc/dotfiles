@@ -1,4 +1,5 @@
-vim.keymap.del("n", "]]", { buffer = true })
-vim.keymap.del("n", "[[", { buffer = true })
-vim.keymap.set({ "n", "t" }, "[[", function() Snacks.words.jump(vim.v.count1) end, { buffer = true, silent = true })
-vim.keymap.set({ "n", "t" }, "]]", function() Snacks.words.jump(-vim.v.count1) end, { buffer = true, silent = true })
+local forward = function() Snacks.words.jump(1) end
+local backward = function() Snacks.words.jump(-1) end
+
+vim.keymap.set({ "n", "t" }, "[[", forward, { buffer = true, silent = true })
+vim.keymap.set({ "n", "t" }, "]]", backward, { buffer = true, silent = true })
