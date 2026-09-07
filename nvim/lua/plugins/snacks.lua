@@ -15,7 +15,7 @@ return {
     input = { enabled = true },
     notifier = {
       enabled = true,
-      timeout = 10000,
+      timeout = 5000,
       width = { min = 40, max = 0.6 },
       height = { min = 1, max = 0.8 },
     },
