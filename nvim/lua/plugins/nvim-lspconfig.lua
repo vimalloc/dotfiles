@@ -2,7 +2,7 @@ return {
   "neovim/nvim-lspconfig",
   lazy = false,
   keys = {
-    -- Jump to / from definitions handled by snacks
+    -- Jump to / from definitions handled by snacks.lua
 
     -- Code formatting stuff
     { '<leader>f', function() vim.lsp.buf.format { async = true } end },
@@ -18,6 +18,7 @@ return {
         ["harper-ls"] = {
           linters = {
             SpellCheck = false,
+            ExpandConfiguration = false,
           },
         }
       },
