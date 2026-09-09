@@ -12,7 +12,8 @@ ci = ["commit", "-i"]
 d = ["diff"]
 dm = ["diff", "-r", "main..@"]
 e = ["edit"]
-f = [
+f = ["git", "fetch"]
+fa = [
   "util", "exec", "--", "sh", "-c", """
 
   CHANGE_IDS=$(
