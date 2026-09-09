@@ -1,3 +1,6 @@
+-- Display signs w/o shifting the code over by adding a column for the sign
+vim.opt.signcolumn = "yes"
+
 -- Initial state
 vim.diagnostic.config {
   virtual_text = true,
