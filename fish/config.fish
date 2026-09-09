@@ -1,6 +1,4 @@
 if status is-interactive
-  # Commands to run in interactive sessions can go here
-
   set --global fish_key_bindings fish_default_key_bindings
   fish_config theme choose "catppuccin-frappe"
 
@@ -8,4 +6,13 @@ if status is-interactive
     history save
     history merge
   end
+end
+
+# Add docker to path
+set -gx PATH "/Users/lily/.docker/bin" $PATH
+
+# Add pnpm to path
+set -gx PNPM_HOME '/Users/lily/Library/pnpm'
+if not string match -q -- "$PNPM_HOME/bin" $PATH
+  set -gx PATH "$PNPM_HOME/bin" $PATH
 end
