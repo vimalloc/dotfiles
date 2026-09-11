@@ -77,5 +77,7 @@ return {
     { "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
     -- Other
     { "<leader>n",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
+    { "[[", function() Snacks.words.jump(-1) end },
+    { "]]", function() Snacks.words.jump(1) end },
   },
 }
