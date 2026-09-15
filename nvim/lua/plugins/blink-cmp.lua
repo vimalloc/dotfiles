@@ -14,6 +14,9 @@ return {
     },
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
+      providers = {
+        lsp = { fallbacks = {} }
+      },
     },
     fuzzy = { implementation = "rust" },
     completion = {
