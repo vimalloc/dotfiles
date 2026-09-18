@@ -72,7 +72,21 @@ return {
         args = { "--config", "config/jest.json", "--runInBand", "${file}" },
         cwd = "${workspaceFolder}",
         env = { TZ = "America/Los_Angeles" },
-        console = "integratedTerminal",
+        console = "integratedTerminal", -- Can maybe mess with this to make it part of the repl?
+        internalConsoleOptions = "neverOpen",
+        sourceMaps = true,
+      },
+    }
+    dap.configurations["typescriptreact"] = {
+      {
+        type = "pwa-node",
+        request = "launch",
+        name = "Debug Jest (Current File)",
+        program = "${workspaceFolder}/node_modules/jest/bin/jest.js",
+        args = { "--config", "config/jest.json", "--runInBand", "${file}" },
+        cwd = "${workspaceFolder}",
+        env = { TZ = "America/Los_Angeles" },
+        console = "integratedTerminal", -- Can maybe mess with this to make it part of the repl?
         internalConsoleOptions = "neverOpen",
         sourceMaps = true,
       },
