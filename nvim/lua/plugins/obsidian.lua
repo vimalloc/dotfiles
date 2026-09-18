@@ -1,11 +1,15 @@
 local WORKSPACES = {
   {
     name = "Valeria",
-    path = vim.fn.expand("~") .. "/Documents/Dnd_Vault",
+    path = vim.fn.expand("~") .. "/code/vaults/dnd",
   },
   {
     name = "Books",
-    path = vim.fn.expand("~") .. "/Documents/books",
+    path = vim.fn.expand("~") .. "/code/vaults/books",
+  },
+  {
+    name = "Masters Social Work",
+    path = vim.fn.expand("~") .. "/code/vaults/msw",
   },
 }
 
@@ -34,5 +38,8 @@ return {
     legacy_commands = false, -- this will be removed in 4.0.0
     workspaces = WORKSPACES,
     note_id_func = note_id_func,
+    checkbox = {
+      order = { " ", "x" },
+    }
   },
 }
