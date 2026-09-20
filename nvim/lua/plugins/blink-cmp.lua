@@ -3,6 +3,10 @@ return {
   dependencies = { 'rafamadriz/friendly-snippets' },
   version = '1.*',
   opts = {
+    enabled = function()
+      local ignore_list = { "jjdescription", "text", "markdown" }
+      return not vim.tbl_contains(ignore_list, vim.bo.filetype)
+    end,
     keymap = {
       preset = 'none',
       ['<Tab>'] = { 'select_next', 'fallback' },
