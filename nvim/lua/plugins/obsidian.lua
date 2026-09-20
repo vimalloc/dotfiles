@@ -25,7 +25,8 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
   callback = function()
     vim.opt_local.conceallevel = 2
     vim.opt.concealcursor = "n"
-    vim.keymap.set('n', 'l', '<cmd>SkipConcealedText<cr>', { buffer = true, silent = true })
+    vim.keymap.set('n', 'l', '<cmd>SkipConcealedTextRight<cr>', { buffer = true, silent = true })
+    vim.keymap.set('n', 'h', '<cmd>SkipConcealedTextLeft<cr>', { buffer = true, silent = true })
   end,
 })
 
