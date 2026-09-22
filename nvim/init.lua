@@ -92,10 +92,11 @@ vim.opt.undodir = { vim.fn.expand("~/.cache/vim/undodir") }
 -- Ensure cache dirs exist
 vim.fn.mkdir(vim.fn.expand("~/.cache/vim/undodir"), "p")
 
--- Faster previous / next / delete buffers
+-- Faster previous / next / delete / reopen buffers
 vim.keymap.set("n", "<leader>bp", "<cmd>bp<cr>")
 vim.keymap.set("n", "<leader>bn", "<cmd>bn<cr>")
 vim.keymap.set("n", "<leader>bd", "<cmd>bd!<cr>")
+vim.keymap.set("n", "<leader>bo", "<cmd>b #<cr>")
 
 -- Faster no highlight search
 vim.keymap.set("n", "<leader>no", "<cmd>nohls<cr>")
