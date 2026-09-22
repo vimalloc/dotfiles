@@ -31,8 +31,6 @@ fa = [
   jj rebase -b "$CHANGE_IDS" -o main --skip-emptied
   """
  ]
-s = ["squash"]
-si = ["squash", "-i"]
 logm = ["log", "-r", "::main"]
 p = [
   "util", "exec", "--", "sh", "-c", """
@@ -71,6 +69,8 @@ pr = [
 ]
 r = ["restore"]
 ri = ["restore",  "-i"]
+s = ["squash"]
+si = ["squash", "-i"]
 lint = [
   "util", "exec", "--", "sh", "-c", """
     jj diff --name-only -r main..@ -- 'root-glob:**/*.rb' | \
