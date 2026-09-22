@@ -1,4 +1,6 @@
 ; extends
 
 ; Fix spellcheck in `jj describe`
-(source) @spell
+(subject) @spell
+(body_line) @spell
+(comment_content) @nospell
