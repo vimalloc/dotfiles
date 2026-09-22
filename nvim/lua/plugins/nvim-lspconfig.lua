@@ -41,6 +41,19 @@ return {
     vim.lsp.enable({'pyright'})
     vim.lsp.enable({'ruby_lsp'})
     vim.lsp.enable({'ts_ls'})
-  end
-}
 
+    -- This error annoying as hell and not actually an issue, it just shows up if I
+    -- delete something that had an lsp warning before the lsp finishes loading.
+    local lsp_client = require('vim.lsp.client')
+    local orig_write_error = lsp_client.write_error
+    lsp_client.write_error = function(self, code, err)
+      vim.notify(tostring(code))
+      vim.notify(vim.inspect(err))
+      vim.notify(vim.inspect(self))
+      if code == 'NO_RESULT_CALLBACK_FOUND' then
+        return
+      end
+      orig_write_error(self, code, err)
+    end
+  end,
+}
