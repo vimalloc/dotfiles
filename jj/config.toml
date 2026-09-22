@@ -69,6 +69,8 @@ pr = [
   fi
   """
 ]
+r = ["restore"]
+ri = ["restore",  "-i"]
 lint = [
   "util", "exec", "--", "sh", "-c", """
     jj diff --name-only -r main..@ -- 'root-glob:**/*.rb' | \
