@@ -19,6 +19,8 @@ return {
           linters = {
             SpellCheck = false,
             ExpandConfiguration = false,
+            AvoidCurses = false,
+            ToDoHyphen = false,
           },
         }
       },
