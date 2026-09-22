@@ -40,7 +40,7 @@ p = [
   BOOKMARK=$(jj log --no-graph -r "heads((::@ & bookmarks()) ~ main ~ staging)" -T 'bookmarks')
   BOOKMARK=$(echo "$BOOKMARK" | sed "s/\\*\\$//")
 
-  jj git push -b $(BOOKMARK)
+  jj git push -b "$BOOKMARK"
   """
 ]
 pa = ["git", "push", "--tracked"]
