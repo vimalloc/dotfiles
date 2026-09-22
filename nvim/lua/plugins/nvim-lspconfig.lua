@@ -47,10 +47,7 @@ return {
     local lsp_client = require('vim.lsp.client')
     local orig_write_error = lsp_client.write_error
     lsp_client.write_error = function(self, code, err)
-      vim.notify(tostring(code))
-      vim.notify(vim.inspect(err))
-      vim.notify(vim.inspect(self))
-      if code == 'NO_RESULT_CALLBACK_FOUND' then
+      if vim.lsp.rpc.client_errors[code] == "NO_RESULT_CALLBACK_FOUND" then
         return
       end
       orig_write_error(self, code, err)
