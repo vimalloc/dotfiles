@@ -13,24 +13,21 @@ d = ["diff"]
 dm = ["diff", "-r", "main..@"]
 e = ["edit"]
 f = ["git", "fetch"]
-# TODO  - Need to either filter out change ids that have a bookmark that is no
-#         longer here
 fa = [
   "util", "exec", "--", "sh", "-c", """
 
-  CHANGE_IDS=$(
-    jj log \
-    --no-graph \
-    -r "roots(main:: & mine())" \
-    -T 'self.change_id().short() ++ "|"'
-  )
-  CHANGE_IDS=$(echo "$CHANGE_IDS" | sed "s/|\\$//")
-
+  CURRENT_MAIN=$(jj log --no-graph -r main -T change_id)
   jj git fetch
-
-  jj rebase -b "$CHANGE_IDS" -o main --skip-emptied
+  CHANGE_IDS_TO_REBASE=$(
+    jj log \
+      --no-graph \
+      -r "roots($CURRENT_MAIN:: & mine() ~ immutable())" \
+      -T 'self.change_id().short() ++ "|"'
+  )
+  CHANGE_IDS_TO_REBASE=$(echo "$CHANGE_IDS_TO_REBASE" | sed "s/|\\$//")
+  jj rebase -b "$CHANGE_IDS_TO_REBASE" -o main --skip-emptied
   """
- ]
+]
 logm = ["log", "-r", "::main"]
 p = [
   "util", "exec", "--", "sh", "-c", """
