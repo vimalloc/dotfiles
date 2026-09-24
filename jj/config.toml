@@ -22,18 +22,18 @@ fa = ["util", "exec", "--", "sh", "-c", """
 """]
 logm = ["log", "-r", "::main"]
 p = ["util", "exec", "--", "sh", "-c", """
-  BOOKMARK=$(jj log --no-graph -r "pushable_bookmark()" -T 'bookmark_name')
-  jj git push -b "$BOOKMARK"
+  NEAREST=$(jj log --no-graph -r "previous_bookmark(@)" -T 'bookmark_name')
+  jj git push -b "$NEAREST"
 """]
 pa = ["git", "push", "--tracked"]
 pr = ["util", "exec", "--", "bash", "-c", """
-  BOOKMARK=$(jj log --no-graph -r "pushable_bookmark()" -T 'bookmark_name')
-  PARENT_BOOKMARK=$(jj log --no-graph -r "parent_bookmark()" -T 'bookmark_name')
+  NEAREST=$(jj log --no-graph -r "previous_bookmark(@)" -T 'bookmark_name')
+  PARENT=$(jj log --no-graph -r "previous_bookmark($NEAREST)-" -T 'bookmark_name')
 
-  if [[ -z "$PARENT_BOOKMARK" ]]; then
-    gh pr create --fill --draft --assignee "@me" --head "$BOOKMARK"
+  if [[ -z "$PARENT" ]]; then
+    gh pr create --fill --draft --assignee "@me" --head "$NEAREST"
   else
-    gh pr create --fill --draft --assignee "@me" --base "$PARENT_BOOKMARK" --head "$BOOKMARK"
+    gh pr create --fill --draft --assignee "@me" --head "$NEAREST" --base "$PARENT"
   fi
 """]
 r = ["restore"]
@@ -54,8 +54,7 @@ bookmark-advance-to = "latest(::@ & ~description(''))" # most recent with descri
 
 [revset-aliases]
 'mine_since(start)' = "roots(start:: & mine() ~ immutable())"
-'pushable_bookmark()' = "heads((::@ & bookmarks()) ~ main ~ staging)"
-'parent_bookmark()' = "heads((::@ & bookmarks()) ~ heads(::@ & bookmarks()) ~ main ~ staging)"
+'previous_bookmark(start)' = "heads((::start & bookmarks()) ~ main ~ staging)"
 
 [template-aliases]
 'change_id_pipe' = 'self.change_id().short() ++ "|"'
