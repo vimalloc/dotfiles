@@ -13,75 +13,53 @@ d = ["diff"]
 dm = ["diff", "-r", "main..@"]
 e = ["edit"]
 f = ["git", "fetch"]
-fa = [
-  "util", "exec", "--", "sh", "-c", """
-
+fa = ["util", "exec", "--", "sh", "-c", """
   CURRENT_MAIN=$(jj log --no-graph -r main -T change_id)
   jj git fetch
-  CHANGE_IDS_TO_REBASE=$(
-    jj log \
-      --no-graph \
-      -r "roots($CURRENT_MAIN:: & mine() ~ immutable())" \
-      -T 'self.change_id().short() ++ "|"'
-  )
-  CHANGE_IDS_TO_REBASE=$(echo "$CHANGE_IDS_TO_REBASE" | sed "s/|\\$//")
-  jj rebase -b "$CHANGE_IDS_TO_REBASE" -o main --skip-emptied
-  """
-]
+  TO_REBASE=$(jj log --no-graph -r "mine_since($CURRENT_MAIN)" -T 'change_id_pipe')
+  TO_REBASE=$(echo "$TO_REBASE" | sed "s/|\\$//")
+  jj rebase -b "$TO_REBASE" -o main --skip-emptied
+"""]
 logm = ["log", "-r", "::main"]
-p = [
-  "util", "exec", "--", "sh", "-c", """
-
-  BOOKMARK=$(jj log --no-graph -r "heads((::@ & bookmarks()) ~ main ~ staging)" -T 'bookmarks')
-  BOOKMARK=$(echo "$BOOKMARK" | sed "s/\\*\\$//")
-
+p = ["util", "exec", "--", "sh", "-c", """
+  BOOKMARK=$(jj log --no-graph -r "pushable_bookmark()" -T 'bookmark_name')
   jj git push -b "$BOOKMARK"
-  """
-]
+"""]
 pa = ["git", "push", "--tracked"]
-pr = [
-  "util", "exec", "--", "bash", "-c", """
-
-  BOOKMARK=$(jj log --no-graph -r "heads((::@ & bookmarks()) ~ main ~ staging)" -T 'bookmarks')
-  BOOKMARK=$(echo "$BOOKMARK" | sed "s/\\*\\$//")
-
-  if [[ -z "$BOOKMARK" ]]; then
-    echo "No bookmark found"
-    exit 1
-  fi
-
-  PARENT_BOOKMARK=$(
-    jj log \
-    --no-graph \
-    -r "heads((::@ & bookmarks()) ~ heads(::@ & bookmarks()) ~ main ~ staging)" -T 'bookmarks'
-  )
-  PARENT_BOOKMARK=$(echo "$PARENT_BOOKMARK" | sed "s/\\*\\$//")
+pr = ["util", "exec", "--", "bash", "-c", """
+  BOOKMARK=$(jj log --no-graph -r "pushable_bookmark()" -T 'bookmark_name')
+  PARENT_BOOKMARK=$(jj log --no-graph -r "parent_bookmark()" -T 'bookmark_name')
 
   if [[ -z "$PARENT_BOOKMARK" ]]; then
     gh pr create --fill --draft --assignee "@me" --head "$BOOKMARK"
   else
     gh pr create --fill --draft --assignee "@me" --base "$PARENT_BOOKMARK" --head "$BOOKMARK"
   fi
-  """
-]
+"""]
 r = ["restore"]
-ri = ["restore",  "-i"]
+ri = ["restore", "-i"]
 s = ["squash"]
 si = ["squash", "-i"]
-lint = [
-  "util", "exec", "--", "sh", "-c", """
-    jj diff --name-only -r main..@ -- 'root-glob:**/*.rb' | \
-      xargs rubocop -A --force-exclusion
-    jj diff --name-only -r main..@ -- "root-glob:'**/*.{js,jsx,ts,tsx}'" | \
-      xargs ./node_modules/eslint/bin/eslint.js --cache --fix
-    jj diff --name-only -r main..@ -- 'root-glob:**/*.haml' | \
-      xargs haml-lint
-  """
-]
+lint = ["util", "exec", "--", "sh", "-c", """
+  jj diff --name-only -r main..@ -- 'root-glob:**/*.rb' | \
+    xargs rubocop -A --force-exclusion
+  jj diff --name-only -r main..@ -- "root-glob:'**/*.{js,jsx,ts,tsx}'" | \
+    xargs ./node_modules/eslint/bin/eslint.js --cache --fix
+  jj diff --name-only -r main..@ -- 'root-glob:**/*.haml' | \
+    xargs haml-lint
+"""]
 
-# TODO - Move my custom revsets down here
 [revsets]
 bookmark-advance-to = "latest(::@ & ~description(''))" # most recent with description
+
+[revset-aliases]
+'mine_since(start)' = "roots(start:: & mine() ~ immutable())"
+'pushable_bookmark()' = "heads((::@ & bookmarks()) ~ main ~ staging)"
+'parent_bookmark()' = "heads((::@ & bookmarks()) ~ heads(::@ & bookmarks()) ~ main ~ staging)"
+
+[template-aliases]
+'change_id_pipe' = 'self.change_id().short() ++ "|"'
+'bookmark_name' = 'bookmarks.map(|b| b.name()).join(" ")'
 
 [remotes.origin]
 auto-track-created-bookmarks = "*"
