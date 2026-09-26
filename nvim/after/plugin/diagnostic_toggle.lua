@@ -3,8 +3,8 @@ vim.opt.signcolumn = "yes"
 
 -- Initial state
 vim.diagnostic.config {
-  virtual_text = true,
-  underline = true,
+  virtual_text = false,
+  underline = false,
   signs = true,
 }
 
