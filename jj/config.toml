@@ -11,43 +11,19 @@ c = ["commit"]
 ci = ["commit", "-i"]
 d = ["diff"]
 dm = ["diff", "-r", "main..@"]
+lp = ["log", "--no-graph", "-p"]
 e = ["edit"]
 f = ["git", "fetch"]
-fa = ["util", "exec", "--", "sh", "-c", """
-  CURRENT_MAIN=$(jj log --no-graph -r main -T change_id)
-  jj git fetch
-  TO_REBASE=$(jj log --no-graph -r "mine_since($CURRENT_MAIN)" -T 'change_id_pipe')
-  TO_REBASE=$(echo "$TO_REBASE" | sed "s/|\\$//")
-  jj rebase -b "$TO_REBASE" -o main --skip-emptied
-"""]
+fa = ["util", "exec", "/Users/lily/.config/jj/scripts/fetch_and_rebase.sh"]
 logm = ["log", "-r", "::main"]
-p = ["util", "exec", "--", "sh", "-c", """
-  NEAREST=$(jj log --no-graph -r "previous_bookmark(@)" -T 'bookmark_name')
-  jj git push -b "$NEAREST"
-"""]
+p = ["util", "exec", "/Users/lily/.config/jj/scripts/push_nearest.sh"]
 pa = ["git", "push", "--tracked"]
-pr = ["util", "exec", "--", "bash", "-c", """
-  NEAREST=$(jj log --no-graph -r "previous_bookmark(@)" -T 'bookmark_name')
-  PARENT=$(jj log --no-graph -r "previous_bookmark($NEAREST)-" -T 'bookmark_name')
-
-  if [[ -z "$PARENT" ]]; then
-    gh pr create --fill --draft --assignee "@me" --head "$NEAREST"
-  else
-    gh pr create --fill --draft --assignee "@me" --head "$NEAREST" --base "$PARENT"
-  fi
-"""]
+pr = ["util", "exec", "/Users/lily/.config/jj/scripts/create_pr.sh"]
 r = ["restore"]
 ri = ["restore", "-i"]
 s = ["squash"]
 si = ["squash", "-i"]
-lint = ["util", "exec", "--", "sh", "-c", """
-  jj diff --name-only -r main..@ -- 'root-glob:**/*.rb' | \
-    xargs rubocop -A --force-exclusion
-  jj diff --name-only -r main..@ -- "root-glob:'**/*.{js,jsx,ts,tsx}'" | \
-    xargs ./node_modules/eslint/bin/eslint.js --cache --fix
-  jj diff --name-only -r main..@ -- 'root-glob:**/*.haml' | \
-    xargs haml-lint
-"""]
+lint = ["util", "exec", "/Users/lily/.config/jj/scripts/lint.sh"]
 
 [revsets]
 bookmark-advance-to = "latest(::@ & ~description(''))" # most recent with description
@@ -67,3 +43,11 @@ auto-track-created-bookmarks = "*"
 pager = "delta"
 diff-editor = ":builtin"
 diff-formatter = ":git"
+
+[merge-tools.diffconflicts]
+program = "nvim"
+merge-args = [
+  "-c", "let g:jj_diffconflicts_marker_length=$marker_length",
+  "-c", "JJDiffConflicts!", "$output", "$base", "$left", "$right",
+]
+merge-tool-edits-conflict-markers = true

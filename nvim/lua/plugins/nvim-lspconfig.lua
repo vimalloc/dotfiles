@@ -41,6 +41,7 @@ return {
     vim.lsp.enable({'pyright'})
     vim.lsp.enable({'ruby_lsp'})
     vim.lsp.enable({'ts_ls'})
+    vim.lsp.enable({'bashls'})
 
     -- This error annoying as hell and not actually an issue, it just shows up if I
     -- delete something that had an lsp warning before the lsp finishes loading.
