@@ -3,5 +3,8 @@ return {
   event = { "BufReadPost", "BufNewFile", "BufWritePre", "FileType" },
   config = function()
     vim.api.nvim_set_hl(0, "GutterMarksLocal", { fg = "#D62020" })
+    require('guttermarks').setup({
+      priority = 0
+    })
   end,
 }
