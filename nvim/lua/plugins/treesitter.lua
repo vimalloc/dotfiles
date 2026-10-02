@@ -5,6 +5,7 @@ languages = {
   "jjdescription",
   "lua",
   "markdown",
+  "markdown_inline",
   "python",
   "query",
   "ruby",

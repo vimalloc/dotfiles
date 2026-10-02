@@ -88,8 +88,6 @@ vim.opt.undofile = true
 vim.opt.backupdir = { vim.fn.expand("~/.cache/vim") }
 vim.opt.directory = { vim.fn.expand("~/.cache/vim/") }
 vim.opt.undodir = { vim.fn.expand("~/.cache/vim/undodir") }
-
--- Ensure cache dirs exist
 vim.fn.mkdir(vim.fn.expand("~/.cache/vim/undodir"), "p")
 
 -- Faster previous / next / delete / reopen buffers
