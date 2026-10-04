@@ -4,7 +4,7 @@ return {
   version = '1.*',
   opts = {
     enabled = function()
-      local ignore_list = { "jjdescription", "text", "markdown" }
+      local ignore_list = { "jjdescription", "text" }
       return not vim.tbl_contains(ignore_list, vim.bo.filetype)
     end,
     keymap = {
@@ -18,6 +18,9 @@ return {
     },
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
+      per_filetype = {
+        markdown = { 'lsp', 'path' },
+      },
       providers = {
         lsp = { fallbacks = {} }
       },

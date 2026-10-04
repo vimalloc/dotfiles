@@ -11,6 +11,10 @@ local WORKSPACES = {
     name = "Masters Social Work",
     path = vim.fn.expand("~") .. "/code/vaults/msw",
   },
+  {
+    name = "Grad School Admissions",
+    path = vim.fn.expand("~") .. "/code/vaults/admissions",
+  },
 }
 
 local PATTERNS = vim.tbl_map(
@@ -25,8 +29,11 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
   callback = function()
     vim.opt_local.conceallevel = 2
     vim.opt.concealcursor = "n"
-    vim.keymap.set('n', 'l', '<cmd>SkipConcealedTextRight<cr>', { buffer = true, silent = true })
-    vim.keymap.set('n', 'h', '<cmd>SkipConcealedTextLeft<cr>', { buffer = true, silent = true })
+
+    local keymap_opts = { buffer = true, silent = true }
+    vim.keymap.set('n', 'l', '<cmd>SkipConcealedTextRight<cr>', keymap_opts)
+    vim.keymap.set('n', 'h', '<cmd>SkipConcealedTextLeft<cr>', keymap_opts)
+    vim.keymap.set('v', '<leader>ln', '<cmd>Obsidian link_new<cr>', keymap_opts)
   end,
 })
 
