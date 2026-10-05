@@ -2,4 +2,12 @@
 set -euo pipefail
 
 NEAREST=$(jj log --no-graph -r "previous_bookmark(@)" -T 'bookmark_name')
-jj git push -b "$NEAREST"
+# PARENT=$(jj log --no-graph -r "previous_bookmark($NEAREST)-" -T 'bookmark_name')
+# This is failing cause it's picking up main/staging. Remove them here
+PARENT=""
+
+if [[ -z "$PARENT" ]]; then
+  gh pr create --fill --draft --assignee "@me" --head "$NEAREST"
+else
+  gh pr create --fill --draft --assignee "@me" --head "$NEAREST" --base "$PARENT"
+fi
