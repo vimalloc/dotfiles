@@ -19,7 +19,7 @@ local function set_next_col_treesitter(initial_col, handle_concealed)
     local treesitter_nodes = vim.inspect_pos(0, row - 1, next_col - 1).treesitter
     for _, treesitter_node in ipairs(treesitter_nodes) do
       if treesitter_node.metadata.conceal ~= nil then
-        next_col = handle_concealed(next_col, next_col - 1, next_col + 1)
+        next_col = handle_concealed(next_col, next_col, next_col + 1)
         continue = true
         break
       end
