@@ -1,13 +1,10 @@
--- Both extmarks and treesitter are used to conceal different parts of the markdown.
--- It's render_markdown that is adding the treesitter parts, Obsidian only uses the
--- extmarks. Kind of annoying, but it is what it is, and handling the both isn't
--- that much worse then doing just one of them.
---
--- TODO
---  * Not sure how the bullet of `* [ ]` is being concealed, don't see anything
---    through inspect, but that one isn't working
---  * One character jump when going left on an external link.
-local function set_next_col_treesitter(initial_col, handle_concealed)
+-- Both extmarks and treesitter are used to conceal different parts of the markdown
+-- when using render-markdown. Just using Obsidian was so much simpler in that
+-- regard, it was using extmarks for everything and just worked. Like, is the small
+-- UI improvements I get with this setup worth it? ...Yeah probably. But it's
+-- annoying to have to deal with.
+
+local function get_next_col_treesitter(initial_col, handle_concealed)
   local window_id = vim.api.nvim_get_current_win()
   local row, col = unpack(vim.api.nvim_win_get_cursor(window_id))
   local next_col = initial_col
@@ -26,10 +23,10 @@ local function set_next_col_treesitter(initial_col, handle_concealed)
     end
   end
 
-  vim.api.nvim_win_set_cursor(window_id, { row, next_col })
+  return next_col
 end
 
-local function set_next_col(initial_col, handle_concealed)
+local function get_next_col_extmarks(initial_col, handle_concealed)
   local window_id = vim.api.nvim_get_current_win()
   local row, col = unpack(vim.api.nvim_win_get_cursor(window_id))
   local marks = vim.api.nvim_buf_get_extmarks(
@@ -50,11 +47,40 @@ local function set_next_col(initial_col, handle_concealed)
     end
   end
 
-  if next_col == initial_col then
-    set_next_col_treesitter(initial_col, handle_concealed)
-  else
+  return next_col
+end
+
+local function set_next_col(initial_col, handle_concealed)
+  local window_id = vim.api.nvim_get_current_win()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(window_id))
+  local next_col = initial_col
+  local previous_next_col = next_col
+  local changed_due_to_ext = false
+
+  while true do
+    next_col = get_next_col_extmarks(next_col, handle_concealed)
     vim.api.nvim_win_set_cursor(window_id, { row, next_col })
+
+    if next_col ~= previous_next_col then
+      vim.notify('ext hit')
+      changed_due_to_ext = true
+      previous_next_col = next_col
+    else
+      break
+    end
   end
+
+  -- We need this for external links, but is causes a conceal hit and character skip
+  -- when traversing right across a [[Normal Link]] (`N` skipped in this case).
+  -- Either figure out what's going on there, like are we going one loop to many
+  -- or something. Or update this to only operate on external links via the
+  -- treesitter group?
+  --
+  -- if changed_due_to_ext == false then
+  --   vim.notify('treesitter hit')
+  --   next_col = get_next_col_treesitter(next_col, handle_concealed)
+  --   vim.api.nvim_win_set_cursor(window_id, { row, next_col })
+  -- end
 end
 
 vim.api.nvim_create_user_command("SkipConcealedTextRight", function()
@@ -79,6 +105,7 @@ vim.api.nvim_create_user_command("SkipConcealedTextLeft", function()
   local initial_col = math.max(col - 1, 0)
 
   local handle_concealed = function(current_col, start_conceal_col, end_conceal_col)
+    -- Is this still needed now?
     local possible_prev_col = math.max(start_conceal_col - 1, 0)
     if possible_prev_col < current_col then
        return possible_prev_col
