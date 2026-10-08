@@ -33,7 +33,6 @@ bookmark-advance-to = "latest(::@ & ~description(''))" # most recent with descri
 'previous_bookmark(start)' = "heads(::start & bookmarks()) ~ main ~ staging"
 'previous_bookmark(start, minus)' = "heads(::start & bookmarks())- ~ main ~ staging"
 
-
 [template-aliases]
 'change_id_pipe' = 'self.change_id().short() ++ "|"'
 'bookmark_name' = 'bookmarks.map(|b| b.name()).join(" ")'

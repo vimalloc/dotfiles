@@ -26,6 +26,11 @@ local function get_next_col_treesitter(initial_col, handle_concealed)
   return next_col
 end
 
+-- With overlap = true I'm kinda surprised we have to jump all the way to the
+-- beginning or end, instead of letting us just move one character at a time. That
+-- was totally broken for me when I first tried it, but maybe try again and see if
+-- I was just doing it wrong, cause I really think it should just work according
+-- to the docs.
 local function get_next_col_extmarks(initial_col, handle_concealed)
   local window_id = vim.api.nvim_get_current_win()
   local row, col = unpack(vim.api.nvim_win_get_cursor(window_id))
@@ -57,12 +62,12 @@ local function set_next_col(initial_col, handle_concealed)
   local previous_next_col = next_col
   local changed_due_to_ext = false
 
+  -- Move this loop into check extmakrs, same way we have it in check treesitter
   while true do
     next_col = get_next_col_extmarks(next_col, handle_concealed)
     vim.api.nvim_win_set_cursor(window_id, { row, next_col })
 
     if next_col ~= previous_next_col then
-      vim.notify('ext hit')
       changed_due_to_ext = true
       previous_next_col = next_col
     else
@@ -77,7 +82,6 @@ local function set_next_col(initial_col, handle_concealed)
   -- treesitter group?
   --
   -- if changed_due_to_ext == false then
-  --   vim.notify('treesitter hit')
   --   next_col = get_next_col_treesitter(next_col, handle_concealed)
   --   vim.api.nvim_win_set_cursor(window_id, { row, next_col })
   -- end
