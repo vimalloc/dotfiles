@@ -14,7 +14,7 @@ local WIKI_LINK_ID = 16
 
 local function get_next_col_treesitter(initial_col, handle_concealed)
   local window_id = vim.api.nvim_get_current_win()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(window_id))
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(window_id))
   local next_col = initial_col
   local continue = true
 
@@ -68,27 +68,20 @@ end
 
 local function set_next_col(initial_col, handle_concealed)
   local window_id = vim.api.nvim_get_current_win()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(window_id))
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(window_id))
   local next_col = initial_col
-  local previous_next_col = next_col
-  local changed_due_to_ext = false
+  local previous_col = next_col
 
-  -- Move this loop into check extmakrs, same way we have it in check treesitter
   while true do
     next_col = get_next_col_extmarks(next_col, handle_concealed)
-    vim.api.nvim_win_set_cursor(window_id, { row, next_col })
-
-    if next_col ~= previous_next_col then
-      changed_due_to_ext = true
-      previous_next_col = next_col
-    else
-      break
-    end
-  end
-
-  if changed_due_to_ext == false then
     next_col = get_next_col_treesitter(next_col, handle_concealed)
     vim.api.nvim_win_set_cursor(window_id, { row, next_col })
+
+    if next_col == previous_col then
+      break
+    end
+
+    previous_col = next_col
   end
 end
 
