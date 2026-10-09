@@ -16,21 +16,15 @@ local function get_next_col_treesitter(initial_col, handle_concealed)
   local window_id = vim.api.nvim_get_current_win()
   local row, _ = unpack(vim.api.nvim_win_get_cursor(window_id))
   local next_col = initial_col
-  local continue = true
 
-  while continue do
-    continue = false
+  local treesitter_nodes = vim.inspect_pos(0, row - 1, next_col - 1).treesitter
+  for _, treesitter_node in ipairs(treesitter_nodes) do
+    local conceal = treesitter_node.metadata.conceal
+    local pattern_id = treesitter_node.pattern_id
 
-    local treesitter_nodes = vim.inspect_pos(0, row - 1, next_col - 1).treesitter
-    for _, treesitter_node in ipairs(treesitter_nodes) do
-      local conceal = treesitter_node.metadata.conceal
-      local pattern_id = treesitter_node.pattern_id
-
-      if conceal ~= nil and pattern_id ~= WIKI_LINK_ID then
-        next_col = handle_concealed(next_col, next_col, next_col + 1)
-        continue = true
-        break
-      end
+    if conceal ~= nil and pattern_id ~= WIKI_LINK_ID then
+      next_col = handle_concealed(next_col, next_col, next_col + 1)
+      break
     end
   end
 
