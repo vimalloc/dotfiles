@@ -44,12 +44,6 @@ local function is_virt_text_displayed(col_start, col_end)
   return false
 end
 
-local function start_on_virt_text()
-  local window_id = vim.api.nvim_get_current_win()
-  local _, col = unpack(vim.api.nvim_win_get_cursor(window_id))
-  return is_virt_text_displayed(col, col + 1)
-end
-
 local function is_last_virt_text_col(col)
   local prev_col_virt_text = is_virt_text_displayed(col, col + 1)
   local prev_prev_col_virt_text = is_virt_text_displayed(col - 1, col)
@@ -76,49 +70,35 @@ end
 
 local function get_next_col_extmarks(initial_col, direction)
   local marks = get_marks(initial_col, initial_col)
-  local next_col = initial_col
-  local start_on_virt_text = start_on_virt_text()
 
   for _, mark in ipairs(marks) do
-    local start_conceal_col, details = mark[3], mark[4]
-
-    if direction == DIRECTIONS.Right then
-      if details.virt_text_hide == false and not start_on_virt_text then
-        return start_conceal_col - 1
-      end
-    elseif direction == DIRECTIONS.Left then
-      if is_last_virt_text_col(next_col) then
-        return initial_col
-      end
-    end
+    local details = mark[4]
 
     if details.conceal ~= nil and initial_col ~= details.end_col then
-      next_col = move_col(initial_col, direction)
+      return move_col(initial_col, direction)
     end
   end
 
-  return next_col
+  return initial_col
 end
 
 local function set_next_col(initial_col, direction)
-  local window_id = vim.api.nvim_get_current_win()
-  local row, _ = unpack(vim.api.nvim_win_get_cursor(window_id))
-
-  local on_virt_text = false
   local next_col = initial_col
-  local previous_col = initial_col
+  local prev_col = initial_col
 
-  while true do
+  while not is_last_virt_text_col(next_col) do
     next_col = get_next_col_treesitter(next_col, direction)
     next_col = get_next_col_extmarks(next_col, direction)
 
-    if is_last_virt_text_col(next_col) or next_col == previous_col then
+    if next_col == prev_col then
       break
     end
 
-    previous_col = next_col
+    prev_col = next_col
   end
 
+  local window_id = vim.api.nvim_get_current_win()
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(window_id))
   vim.api.nvim_win_set_cursor(window_id, { row, next_col })
 end
 
@@ -135,4 +115,3 @@ vim.api.nvim_create_user_command("SkipConcealedTextLeft", function()
   local initial_col = move_col(col, DIRECTIONS.Left)
   set_next_col(initial_col, DIRECTIONS.Left)
 end, { desc = "Skip Concealed Text Left" })
-
