@@ -8,7 +8,7 @@ return {
       left_pad = 0,
       right_pad = 1,
     },
-    render_modes = { 'n', 'i', 'v', 'V', 'c', 't' },
+    render_modes = { 'n', 'i', 'v', 'V', 'c', 't', 'no' },
     win_options = {
       concealcursor = { rendered = 'n' },
     },
