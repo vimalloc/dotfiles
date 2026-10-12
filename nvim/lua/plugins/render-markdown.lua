@@ -3,6 +3,10 @@ return {
   dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
   opts = {
     enabled = true,
+    injections = {},
+    completions = {
+      blink = { enabled = true },
+    },
     checkbox = {
       enabled = true,
       left_pad = 0,
@@ -14,6 +18,11 @@ return {
     },
     anti_conceal = {
       disabled_modes = { 'n' },
+    },
+    heading = {
+      width = 'block',
+      right_pad = 1,
+      sign = false,
     },
   },
 }
