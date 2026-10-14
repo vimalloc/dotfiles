@@ -105,6 +105,9 @@ vim.opt.spell = true
 -- Fix the mistype that I keep hitting when trying to fix a misspelled word
 vim.keymap.set("n", "z-", "z=")
 
+-- Status line
+vim.opt.statusline = "%{expand('%:.')} %=%l,%c"
+
 -- Load plugins
 require('config.lazy')
 
