@@ -1,28 +1,32 @@
 #!/bin/bash
 set -u
 
-HAML_FILES=$(jj diff --name-only -r main..@ -- 'root-glob:**/*.haml')
-RUBY_FILES=$(jj diff --name-only -r main..@ -- 'root-glob:**/*.rb')
-TS_FILES=$(jj diff --name-only -r main..@ -- "root-glob:'**/*.{js,jsx,ts,tsx}'")
+diff_files() {
+  jj diff --summary -r main..@ -- root-glob:"$1" | awk '$1 != "D" { print $2 }'
+}
 
-if [[ -n "$HAML_FILES" ]]; then
+HAML_GLOB='**/*.haml'
+RUBY_GLOB='**/*.rb'
+TYPESCRIPT_GLOB="'**/*.{js,jsx,ts,tsx}'"
+
+if [[ -n $(diff_files "${HAML_GLOB}") ]]; then
   echo "Running haml-lint"
   echo "-----------------"
-  echo "$HAML_FILES" | xargs haml-lint
+  diff_files "${HAML_GLOB}" | xargs haml-lint
   printf "\n\n"
 fi
 
-if [[ -n "$RUBY_FILES" ]]; then
+if [[ -n $(diff_files "${RUBY_GLOB}") ]]; then
   echo "Running rubocop"
   echo "---------------"
-  echo "$RUBY_FILES" | xargs rubocop -A --force-exclusion
+  diff_files "${RUBY_GLOB}" | xargs rubocop -A --force-exclusion
   printf "\n\n"
 fi
 
-if [[ -n "$TS_FILES" ]]; then
+if [[ -n $(diff_files "${TYPESCRIPT_GLOB}") ]]; then
   echo "Running eslint"
   echo "--------------"
-  echo "$TS_FILES" | xargs ./node_modules/eslint/bin/eslint.js --cache --fix
+  diff_files "$TYPESCRIPT_GLOB" | xargs ./node_modules/eslint/bin/eslint.js --cache --fix
   printf "\n\n"
 
   echo "Running ts_check"
