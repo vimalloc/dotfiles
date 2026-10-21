@@ -34,7 +34,7 @@ vim.opt.mouse = "v"
 
 -- Line numbers
 vim.opt.number = true
-vim.opt.colorcolumn = "85"
+vim.opt.colorcolumn = "96"
 
 -- Special keymaps for copying to system clipboard
 vim.keymap.set({ "n", "v", "o" }, "<C-y>", '"*y')
