@@ -70,7 +70,9 @@ local function deleteWhitespace()
 
   vim.cmd("%s/\\s\\+$//ge")
   vim.cmd("nohlsearch")
-  vim.cmd("silent! update")
+  if vim.bo.modified then
+    vim.cmd("silent! write")
+  end
 end
 
 vim.keymap.set('n', '<leader>wt', deleteWhitespace)
