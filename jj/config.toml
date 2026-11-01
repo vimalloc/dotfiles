@@ -11,11 +11,13 @@ c = ["commit"]
 ci = ["commit", "-i"]
 d = ["diff"]
 dm = ["diff", "-r", "main..@"]
-lp = ["log", "-r", "::main", "--no-graph", "-p"]
+do = ["util", "exec", "/Users/lily/.config/jj/scripts/diff_origin.sh"]
 e = ["edit"]
 f = ["git", "fetch"]
 fa = ["util", "exec", "/Users/lily/.config/jj/scripts/fetch_and_rebase.sh"]
+lint = ["util", "exec", "/Users/lily/.config/jj/scripts/lint.sh"]
 logm = ["log", "-r", "::main"]
+lp = ["log", "-r", "::main", "--no-graph", "-p"]
 p = ["util", "exec", "/Users/lily/.config/jj/scripts/push_nearest.sh"]
 pa = ["git", "push", "--tracked"]
 pr = ["util", "exec", "/Users/lily/.config/jj/scripts/create_pr.sh"]
@@ -23,15 +25,14 @@ r = ["restore"]
 ri = ["restore", "-i"]
 s = ["squash"]
 si = ["squash", "-i"]
-lint = ["util", "exec", "/Users/lily/.config/jj/scripts/lint.sh"]
 
 [revsets]
 bookmark-advance-to = "latest(::@ & ~description(''))" # most recent with description
 
 [revset-aliases]
 'mine_since(start)' = "roots(start:: & mine() ~ immutable())"
-'previous_bookmark(start)' = "heads(::start & bookmarks()) ~ main ~ staging"
-'previous_bookmark(start, minus)' = "heads(::start & bookmarks())- ~ main ~ staging"
+'previous_bookmark(start)' = "heads(::start & bookmarks()) ~ present(main) ~ present(staging)"
+'previous_bookmark(start, minus)' = "heads(::start & bookmarks())- ~ present(main) ~ present(staging)"
 
 [template-aliases]
 'change_id_pipe' = 'self.change_id().short() ++ "|"'
