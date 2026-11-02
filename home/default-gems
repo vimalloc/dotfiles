@@ -1,7 +1,2 @@
-bundler
-foreman
-mailcatcher
-pry
-rubygems-bundler
 ruby-lsp
 ruby-lsp-rails

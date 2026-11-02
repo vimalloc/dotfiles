@@ -2,7 +2,7 @@
 
 [user]
 name = "Lily Acadia Gilbert"
-email = "lily@informedk12.com"
+email = "lily.gilbert@hey.com"
 
 [aliases]
 a = ["bookmark", "advance"]
@@ -15,7 +15,6 @@ do = ["util", "exec", "/Users/lily/.config/jj/scripts/diff_origin.sh"]
 e = ["edit"]
 f = ["git", "fetch"]
 fa = ["util", "exec", "/Users/lily/.config/jj/scripts/fetch_and_rebase.sh"]
-lint = ["util", "exec", "/Users/lily/.config/jj/scripts/lint.sh"]
 logm = ["log", "-r", "::main"]
 lp = ["log", "-r", "::main", "--no-graph", "-p"]
 p = ["util", "exec", "/Users/lily/.config/jj/scripts/push_nearest.sh"]
@@ -31,8 +30,8 @@ bookmark-advance-to = "latest(::@ & ~description(''))" # most recent with descri
 
 [revset-aliases]
 'mine_since(start)' = "roots(start:: & mine() ~ immutable())"
-'previous_bookmark(start)' = "heads(::start & bookmarks()) ~ present(main) ~ present(staging)"
-'previous_bookmark(start, minus)' = "heads(::start & bookmarks())- ~ present(main) ~ present(staging)"
+'previous_bookmark(start)' = "heads(::start & bookmarks())"
+'previous_bookmark(start, minus)' = "heads(::start & bookmarks())-"
 
 [template-aliases]
 'change_id_pipe' = 'self.change_id().short() ++ "|"'
