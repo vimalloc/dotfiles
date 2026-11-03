@@ -24,3 +24,6 @@ when about this one
 ```
 
 ## JJ
+
+## General
+* Install a newer version of ruby locally for misc stuff that comes up

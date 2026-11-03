@@ -20,8 +20,6 @@ return {
       disabled_modes = { 'n' },
     },
     heading = {
-      width = 'block',
-      right_pad = 1,
       sign = false,
     },
   },
