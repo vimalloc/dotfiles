@@ -13,8 +13,6 @@
 * Maybe make a PR to support the links at bottom style of link?
 
 ## Neovim
-* Install Lua LSP and code formatter.
-  * Use it everywhere
 * Tests for my custom scripts
 * Make my custom scripts only load on markdown files, or only exposed keybinds there
 * Have `>` render a bar over virtual text lines in markdown? (Not super important at all)

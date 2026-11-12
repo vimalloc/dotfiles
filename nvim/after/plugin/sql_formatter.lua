@@ -9,7 +9,7 @@ vim.api.nvim_create_user_command("SqlFormatter", function()
   local formatted_output = vim.split(output, "\n")
   local exit_code = vim.v.shell_error
 
-  if exit_code != 0 then
+  if exit_code ~= 0 then
     local error = "Failed to format the SQL:\n" .. formatted_output
     vim.notify(error, vim.log.levels.ERROR)
     return

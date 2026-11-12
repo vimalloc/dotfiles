@@ -40,7 +40,7 @@ return {
         -- Not on disk: skip if it's an empty new file, or if it existed when we
         -- read it and has since been deleted.
         local empty = vim.api.nvim_buf_line_count(buf) == 1
-          and vim.api.nvim_buf_get_lines(buf, 0, 1, false)[1] == ""
+            and vim.api.nvim_buf_get_lines(buf, 0, 1, false)[1] == ""
         return not empty and known == nil
       end
 

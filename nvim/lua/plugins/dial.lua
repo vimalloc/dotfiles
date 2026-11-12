@@ -1,11 +1,13 @@
 return {
   "monaqa/dial.nvim",
   keys = {
-    { "<C-a>",
+    {
+      "<C-a>",
       function() require("dial.map").manipulate("increment", "normal") end,
       desc = "Dial Increment"
     },
-    { "<C-x>",
+    {
+      "<C-x>",
       function() require("dial.map").manipulate("decrement", "normal") end,
       desc = "Dial Decrement"
     },

@@ -119,4 +119,3 @@ require('config.lazy')
 -- z=            -> Bring up the suggested replacements
 -- zg            -> Good word: Add the word under the cursor to the dictionary
 -- zw            -> Woops! Undo and remove the word from the dictionary
-

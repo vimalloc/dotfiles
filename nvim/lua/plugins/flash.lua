@@ -9,12 +9,14 @@ return {
     },
   },
   keys = {
-    { "f",
+    {
+      "f",
       mode = { "n", "x", "o" },
       function() require("flash").jump() end,
       desc = "Flash Jump"
     },
-    { "F",
+    {
+      "F",
       mode = { "n", "x", "o" },
       function() require("flash").treesitter_search() end,
       desc = "Flash Treesitter Search"

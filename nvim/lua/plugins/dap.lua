@@ -1,6 +1,6 @@
 return {
   'mfussenegger/nvim-dap',
-  config = function ()
+  config = function()
     local dap = require("dap")
 
     vim.api.nvim_create_autocmd("FileType", {
@@ -47,7 +47,7 @@ return {
       dap.repl.close()
     end
 
-    vim.keymap.set('n', '<leader>dt', dap.toggle_breakpoint, { desc =  'Breakpoint' })
+    vim.keymap.set('n', '<leader>dt', dap.toggle_breakpoint, { desc = 'Breakpoint' })
     vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'Continue / Start' })
 
     -- Typescript dap setup. No plugin for this so have to do it more by hand.

@@ -5,11 +5,11 @@ return {
     -- Jump to / from definitions handled by snacks.lua
 
     -- Code formatting stuff
-    { '<leader>f', function() vim.lsp.buf.format { async = true } end },
+    { '<leader>f',  function() vim.lsp.buf.format { async = true } end },
     { '<leader>ca', vim.lsp.buf.code_action },
 
-     -- View errors
-    { '<leader>e', vim.diagnostic.open_float },
+    -- View errors
+    { '<leader>e',  vim.diagnostic.open_float },
   },
   config = function()
     vim.lsp.config('harper_ls', {
@@ -26,6 +26,19 @@ return {
       },
     })
 
+    vim.lsp.config('lua_ls', {
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { 'vim' },
+          },
+          workspace = {
+            library = vim.api.nvim_get_runtime_file('', true),
+          },
+        },
+      },
+    })
+
     vim.lsp.config('ruby_lsp', {
       init_options = {
         addonSettings = {
@@ -36,12 +49,13 @@ return {
       },
     })
 
-    vim.lsp.enable({'eslint'})
-    vim.lsp.enable({'harper_ls'})
-    vim.lsp.enable({'pyright'})
-    vim.lsp.enable({'ruby_lsp'})
-    vim.lsp.enable({'ts_ls'})
-    vim.lsp.enable({'bashls'})
+    vim.lsp.enable({ 'eslint' })
+    vim.lsp.enable({ 'harper_ls' })
+    vim.lsp.enable({ 'pyright' })
+    vim.lsp.enable({ 'ruby_lsp' })
+    vim.lsp.enable({ 'ts_ls' })
+    vim.lsp.enable({ 'bashls' })
+    vim.lsp.enable({ 'lua_ls' })
 
     -- This error annoying as hell and not actually an issue, it just shows up if I
     -- delete something that had an lsp warning before the lsp finishes loading.

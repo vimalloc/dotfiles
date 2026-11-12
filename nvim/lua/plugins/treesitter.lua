@@ -1,4 +1,4 @@
-languages = {
+LANGUAGES = {
   "bash",
   "fish",
   "javascript",
@@ -20,12 +20,12 @@ return {
   lazy = false,
   build = ':TSUpdate',
   config = function()
-    require('nvim-treesitter').install(languages)
+    require('nvim-treesitter').install(LANGUAGES)
     require('nvim-treesitter').setup({})
 
     vim.opt.foldlevelstart = 99
     vim.api.nvim_create_autocmd('FileType', {
-      pattern = languages,
+      pattern = LANGUAGES,
       callback = function()
         vim.treesitter.start()
         vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
