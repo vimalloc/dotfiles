@@ -4,14 +4,6 @@ local WORKSPACES = {
     path = vim.fn.expand("~") .. "/code/vaults/dnd",
   },
   {
-    name = "Books",
-    path = vim.fn.expand("~") .. "/code/vaults/books",
-  },
-  {
-    name = "Masters Social Work",
-    path = vim.fn.expand("~") .. "/code/vaults/msw",
-  },
-  {
     name = "Grad School Admissions",
     path = vim.fn.expand("~") .. "/code/vaults/admissions",
   },
