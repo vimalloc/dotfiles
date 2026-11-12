@@ -27,16 +27,7 @@ local PATTERNS = vim.tbl_map(
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
   pattern = PATTERNS,
   callback = function()
-    vim.opt_local.conceallevel = 2
-    vim.opt.concealcursor = "n"
-
-    local keymap_opts = { buffer = true, silent = true }
-    vim.keymap.set('n', 'l', '<cmd>SkipConcealedTextRight<cr>', keymap_opts)
-    vim.keymap.set('n', 'h', '<cmd>SkipConcealedTextLeft<cr>', keymap_opts)
-    vim.keymap.set('v', '<leader>ln', '<cmd>Obsidian link_new<cr>', keymap_opts)
-
-    -- Move this somewhere else. Also wtf guys why is this necessary. TODO
-    vim.api.nvim_set_hl(0, '@markup.link.label.markdown_inline', { fg = '#4ba4f3' })
+    vim.keymap.set('v', '<leader>ln', '<cmd>Obsidian link_new<cr>', { buffer = true, silent = true })
   end,
 })
 

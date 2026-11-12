@@ -31,7 +31,7 @@ local function is_virt_text_displayed(col_start, col_end)
 
   for _, mark in ipairs(marks) do
     local details = mark[4]
-    if details.virt_text_hide == false then
+    if details ~= nil and details.virt_text_hide == false then
       return true
     end
   end

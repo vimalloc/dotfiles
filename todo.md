@@ -19,9 +19,3 @@
 
 ## JJ
 * Alias for advance / push (since that's all I'll be doing now) :sob:
-
-## General
-* Install a newer version of ruby locally for misc stuff that comes up
-
-## Plugin
-`* ~` doesn't work properly
