@@ -12,5 +12,11 @@
 
 ## Neovim
 * Tests for my custom scripts
-* Make my custom scripts only load on markdown files, or only exposed keybinds there
 * Have `>` render a bar over virtual text lines in markdown? (Not super important at all)
+* Have plugin skip `- [ ]`, with whatever is happening there.
+* Have icon for external links be selectable
+* External link at start of line requires two clicks to get through
+* Is there a way to more gracefully handle virt text so it works with both icons and checkboxes?
+
+## Dumb shit just to kill time
+* NixOS

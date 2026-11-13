@@ -46,6 +46,12 @@ local function is_left_virt_text_edge(col)
   return col_virt_text and not prev_col_virt_text
 end
 
+local function is_list_marker_minus(col)
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  local node = vim.treesitter.get_node({ pos = { row - 1, col } })
+  return node and node:type() == 'list_marker_minus'
+end
+
 local function get_next_col(initial_col, direction)
   local row = vim.api.nvim_win_get_cursor(0)[1]
   local inspect_opts = {
@@ -55,6 +61,19 @@ local function get_next_col(initial_col, direction)
     treesitter = true,
   }
   local inspect = vim.inspect_pos(0, row - 1, initial_col, inspect_opts)
+
+  -- See if we can clean this up. In fact, whole function now, it's big
+  if is_list_marker_minus(initial_col) then
+    if direction == DIRECTIONS.Right then
+      return initial_col + 2
+    else
+      return move_col(initial_col, direction)
+    end
+  end
+
+  if is_left_virt_text_edge(initial_col) then
+    return initial_col
+  end
 
   for _, extmark in ipairs(inspect.extmarks) do
     if extmark.opts.conceal ~= nil and initial_col ~= extmark.opts.end_col then
@@ -75,7 +94,7 @@ local function set_next_col(initial_col, direction)
   local next_col = initial_col
   local prev_col = initial_col
 
-  while not is_left_virt_text_edge(next_col) do
+  while true do
     next_col = get_next_col(next_col, direction)
     if next_col == prev_col then
       break
