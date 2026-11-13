@@ -2,4 +2,4 @@
 set -euo pipefail
 
 jj bookmark advance
-./push_nearest.sh
+/Users/lily/.config/jj/scripts/push_nearest.sh
