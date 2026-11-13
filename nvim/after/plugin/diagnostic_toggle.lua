@@ -18,5 +18,3 @@ vim.api.nvim_create_user_command("DiagnosticToggle", function()
     signs = true,
   }
 end, { desc = "Diagnostic Toggle" })
-
-vim.keymap.set('n', '<leader>at', '<cmd>DiagnosticToggle<cr>')

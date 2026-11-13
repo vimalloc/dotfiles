@@ -24,9 +24,10 @@ vim.keymap.set("n", "j", "gj", { buffer = true, silent = true })
 vim.keymap.set("n", "0", "g0", { buffer = true, silent = true })
 vim.keymap.set("n", "$", "g$", { buffer = true, silent = true })
 
--- Hookup our plugin
-vim.keymap.set('n', 'l', '<cmd>SkipConcealedTextRight<cr>', { buffer = true, silent = true })
-vim.keymap.set('n', 'h', '<cmd>SkipConcealedTextLeft<cr>', { buffer = true, silent = true })
-
 -- Markdown link color
 vim.api.nvim_set_hl(0, '@markup.link.label.markdown_inline', { fg = '#4ba4f3' })
+
+-- Hookup our custom commands
+vim.keymap.set('n', 'l', vim.cmd.SkipConcealedTextRight, { buffer = true, silent = true })
+vim.keymap.set('n', 'h', vim.cmd.SkipConcealedTextLeft, { buffer = true, silent = true })
+vim.keymap.set('n', '<leader>st', vim.cmd.InlineStrikethrough)

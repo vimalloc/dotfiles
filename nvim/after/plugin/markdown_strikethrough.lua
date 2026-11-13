@@ -19,5 +19,3 @@ vim.api.nvim_create_user_command("InlineStrikethrough", function()
     vim.api.nvim_buf_set_text(0, start_row, start_col, start_row, start_col, { '~' })
   end
 end, { desc = "Inline Strikethrough" })
-
-vim.keymap.set('n', '<leader>st', '<cmd>InlineStrikethrough<cr>')

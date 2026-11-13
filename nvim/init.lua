@@ -34,52 +34,23 @@ vim.opt.mouse = "v"
 
 -- Line numbers
 vim.opt.number = true
-vim.opt.colorcolumn = "96"
+vim.opt.colorcolumn = "99"
 
 -- Special keymaps for copying to system clipboard
 vim.keymap.set({ "n", "v", "o" }, "<C-y>", '"*y')
 vim.keymap.set({ "n", "v", "o" }, "<C-p>", '"*p')
 
--- Highlight current cursorline
+-- Highlight current cursor line
 vim.opt.cursorline = true
 
--- Highlight trailing whitespace
-vim.api.nvim_set_hl(0, "ExtraWhitespace", { ctermbg = "green", bg = "green" })
-
-vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
-  callback = function()
-    vim.cmd([[match ExtraWhitespace /\s\+$/]])
-  end
-})
-
-vim.api.nvim_create_autocmd("InsertEnter", {
-  callback = function()
-    vim.cmd([[match ExtraWhitespace /\s\+\%#\@<!$/]])
-  end
-})
-
--- Delete trailing whitespace. Considering running this code when closing a buffer
-local function deleteWhitespace()
-  if vim.api.nvim_buf_get_name(0) == "" then
-    return nil
-  end
-
-  if vim.api.nvim_get_option_value("buftype", { buf = 0 }) ~= "" then
-    return nil
-  end
-
-  vim.cmd("%s/\\s\\+$//ge")
-  vim.cmd("nohlsearch")
-  if vim.bo.modified then
-    vim.cmd("silent! write")
-  end
-end
-
-vim.keymap.set('n', '<leader>wt', deleteWhitespace)
-
+-- Hook up our custom functions
+vim.keymap.set('n', '<leader>ss', vim.cmd.SqlFormatter)
+vim.keymap.set('n', 'm', vim.cmd.ImmutableMarks)
+vim.keymap.set('n', '<leader>at', vim.cmd.DiagnosticToggle)
+vim.keymap.set('n', '<leader>wt', vim.cmd.DeleteWhitespace)
 vim.api.nvim_create_autocmd({ "BufUnload" }, {
   buffer = 0,
-  callback = deleteWhitespace
+  callback = function() vim.cmd.DeleteWhitespace() end,
 })
 
 -- Backup, swap, etc
@@ -101,7 +72,7 @@ vim.keymap.set("n", "<leader>bo", "<cmd>b #<cr>")
 -- Faster no highlight search
 vim.keymap.set("n", "<leader>no", "<cmd>nohls<cr>")
 
--- Spellcheck (code comments and 'it' (etc) blocks
+-- Spellcheck (code comments and 'it' (etc) blocks)
 vim.opt.spell = true
 
 -- Fix the mistype that I keep hitting when trying to fix a misspelled word

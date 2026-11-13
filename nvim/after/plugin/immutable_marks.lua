@@ -33,5 +33,3 @@ vim.api.nvim_create_user_command("ImmutableMarks", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   vim.api.nvim_buf_set_mark(buffer, mark, row, col, {})
 end, { desc = "Immutable Marks" })
-
-vim.keymap.set('n', 'm', '<cmd>ImmutableMarks<cr>')

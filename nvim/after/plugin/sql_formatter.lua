@@ -18,5 +18,3 @@ vim.api.nvim_create_user_command("SqlFormatter", function()
   vim.api.nvim_buf_set_lines(0, 0, -1, false, formatted_output)
   vim.bo.filetype = "sql"
 end, { desc = "SQL Formatter" })
-
-vim.keymap.set('n', '<leader>ss', '<cmd>SqlFormatter<cr>')
