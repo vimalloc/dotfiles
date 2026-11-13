@@ -27,26 +27,38 @@ local note_id_func = function(title)
   return title
 end
 
--- This works, but it now sets an unnecessary alias on the referring wiki link. Figure that out
 local note_path_func = function(spec)
-  local filename = (spec.title or tostring(spec.id)):gsub(' ', '_')
+  local filename = (spec.title or tostring(spec.id)):gsub(' ', '_'):lower()
   local path = spec.dir / filename
   return path:with_suffix(".md")
+end
+
+local wiki_link_alias_only = function(opts)
+  local header_or_block = ""
+  if opts.anchor then
+    header_or_block = string.format("#%s", opts.anchor.header)
+  elseif opts.block then
+    header_or_block = string.format("#%s", opts.block.id)
+  end
+  return string.format("[[%s%s]]", opts.label, header_or_block)
 end
 
 return {
   "obsidian-nvim/obsidian.nvim",
   version = "*",
   opts = {
+    legacy_commands = false, -- this will be removed in 4.0.0
+    checkbox = {
+      order = { " ", "x" },
+    },
+    note_id_func = note_id_func,
+    note_path_func = note_path_func,
+    link = {
+      style = wiki_link_alias_only,
+    },
     ui = {
       enable = false,
     },
-    legacy_commands = false, -- this will be removed in 4.0.0
     workspaces = WORKSPACES,
-    note_id_func = note_id_func,
-    note_path_func = note_path_func,
-    checkbox = {
-      order = { " ", "x" },
-    }
-  },
+  }
 }

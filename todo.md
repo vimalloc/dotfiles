@@ -8,9 +8,7 @@
   * OMG IT'S MERGED!!!
 
 ## Obsidian
-* Make filenames lower case and underscore. How it is is a pain.
 * I dunno, just look and see if there is a better workflow then what I have
-* Maybe make a PR to support the links at bottom style of link?
 
 ## Neovim
 * Tests for my custom scripts
