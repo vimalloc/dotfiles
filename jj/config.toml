@@ -6,6 +6,7 @@ email = "lily.gilbert@hey.com"
 
 [aliases]
 a = ["bookmark", "advance"]
+ap = ["util", "exec", "/Users/lily/.config/jj/scripts/advance_and_push.sh.sh"]
 bc = ["bookmark", "create"]
 c = ["commit"]
 ci = ["commit", "-i"]

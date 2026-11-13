@@ -14,6 +14,3 @@
 * Tests for my custom scripts
 * Make my custom scripts only load on markdown files, or only exposed keybinds there
 * Have `>` render a bar over virtual text lines in markdown? (Not super important at all)
-
-## JJ
-* Alias for advance / push (since that's all I'll be doing now) :sob:
