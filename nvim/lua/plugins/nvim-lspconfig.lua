@@ -59,16 +59,5 @@ return {
     vim.lsp.enable({ 'ts_ls' })
     vim.lsp.enable({ 'bashls' })
     vim.lsp.enable({ 'lua_ls' })
-
-    -- This error annoying as hell and not actually an issue, it just shows up if I
-    -- delete something that had an lsp warning before the lsp finishes loading.
-    local lsp_client = require('vim.lsp.client')
-    local orig_write_error = lsp_client.write_error
-    lsp_client.write_error = function(self, code, err)
-      if vim.lsp.rpc.client_errors[code] == "NO_RESULT_CALLBACK_FOUND" then
-        return
-      end
-      orig_write_error(self, code, err)
-    end
   end,
 }
