@@ -12,7 +12,6 @@
 
 ## Neovim
 * Tests for my custom scripts
-* Have `>` render a bar over virtual text lines in markdown? (Not super important at all)
 * Have icon for external links be selectable (no idea what's happening here)
 * Is there a way to more gracefully handle virt text so it works with both icons and checkboxes?
 

@@ -70,8 +70,6 @@ local function get_inspect_data(initial_col)
 end
 
 local function get_next_col(initial_col, direction)
-  local inspect = get_inspect_data(initial_col)
-
   if is_treesitter_node(initial_col, 'list_marker_minus') then
     local jump = direction == DIRECTIONS.Right and 2 or 1
     return move_col(initial_col, direction, jump)
@@ -80,6 +78,8 @@ local function get_next_col(initial_col, direction)
   if is_left_virt_text_edge(initial_col) then
     return initial_col
   end
+
+  local inspect = get_inspect_data(initial_col)
 
   for _, extmark in ipairs(inspect.extmarks) do
     if extmark.opts.conceal ~= nil and initial_col ~= extmark.opts.end_col then

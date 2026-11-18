@@ -22,5 +22,8 @@ return {
     heading = {
       sign = false,
     },
+    quote = {
+      repeat_linebreak = true,
+    },
   },
 }
