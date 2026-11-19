@@ -7,17 +7,19 @@ Pry::Commands.block_command('editt', 'Persistent buffer') do
   # Going back and forth on that one. Or handle frozen_string_literal and disabling
   # some cops at the opening of vim level? I dunno. Or just disable diagnostics by
   # default in this one case, if an env variable is set or something?
-  path = '.pry_scratch.rb'
+  path = File.expand_path("~/.pry_scratch.rb")
   FileUtils.touch(path) unless File.exist?(path)
 
   # Need this if we want ruby-lsp functionality, otherwise it's looks at the wrong
   # bundler context and cause ruby-lsp to error when trying to load (nvim only?)
-  Bundler.with_unbundled_env { system("#{Pry.config.editor} #{path}") }
+  # Bundler.with_unbundled_env { system("#{Pry.config.editor} #{path}") }
+
+  system("#{Pry.config.editor} #{path}")
 
   File.foreach(path) do |line|
     line = line.rstrip
-    next if line.starts_with?('#')
-    next if line.strip.blank?
+    next if line.start_with?('#')
+    next if line.strip.empty?
 
     # Need to put not-stripped line here, so that it preserves indentation on multi
     # block lines

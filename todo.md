@@ -17,3 +17,6 @@
 
 ## Dumb shit just to kill time
 * NixOS
+
+## Ruby
+* Add default gems when ruby updates

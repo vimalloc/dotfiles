@@ -7,7 +7,7 @@ if status is-interactive
     history merge
   end
 
-  # Heroku autocompletion
+  # Homebrew autocompletion
   if test -d (brew --prefix)"/share/fish/completions"
     set -p fish_complete_path (brew --prefix)/share/fish/completions
   end
@@ -15,13 +15,7 @@ if status is-interactive
   if test -d (brew --prefix)"/share/fish/vendor_completions.d"
     set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
   end
+
+  fish_add_path /opt/homebrew/lib/ruby/gems/4.0.0/bin
 end
 
-# Add docker to path
-set -gx PATH "/Users/lily/.docker/bin" $PATH
-
-# Add pnpm to path
-set -gx PNPM_HOME '/Users/lily/Library/pnpm'
-if not string match -q -- "$PNPM_HOME/bin" $PATH
-  set -gx PATH "$PNPM_HOME/bin" $PATH
-end
