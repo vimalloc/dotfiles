@@ -9,7 +9,6 @@ vim.opt_local.number = false
 
 -- Wrap lines on word boundaries
 vim.opt_local.linebreak = true
-vim.opt_local.showbreak = '  '
 
 -- Indent wrapped lines to the same level as the line they are wrapped from
 vim.opt_local.breakindent = true
