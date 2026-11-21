@@ -7,6 +7,10 @@ local WORKSPACES = {
     name = "Grad School Admissions",
     path = vim.fn.expand("~") .. "/code/vaults/admissions",
   },
+  {
+    name = "Eating Recovery Center",
+    path = vim.fn.expand("~") .. "/code/vaults/erc",
+  },
 }
 
 local PATTERNS = vim.tbl_map(
