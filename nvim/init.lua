@@ -79,7 +79,7 @@ vim.opt.spell = true
 vim.keymap.set("n", "z-", "z=")
 
 -- Status line
-vim.opt.statusline = "%{expand('%:.')} %=%l,%c"
+vim.opt.statusline = "%{expand('%:.')} %=%{v:lua.get_word_count()}, Row %l, Col %c"
 
 -- Load plugins
 require('config.lazy')
