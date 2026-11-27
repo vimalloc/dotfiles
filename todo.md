@@ -13,6 +13,19 @@
 
 ## Dumb Shit Just to Kill Time
 * NixOS
+  * They have full support for trans folks in their software, which is cool.
 
 ## Ruby
 * Add default gems when ruby updates
+* Make `editt` in pry work nicely for multiline blocks
+
+## Flask-JWT-Extended
+* Don't enable spell for code-block segments
+* Handle PRs
+* Test against newest flask version
+* Update spelling errors in docs
+* Update all dependencies
+
+## JJ
+* Alias to pull down pull request from fork and clean it up afterwords
+  * I think for the most part `gh` does this for us, just need to clean up jj afterwords

@@ -54,10 +54,10 @@ return {
 
     vim.lsp.enable({ 'eslint' })
     vim.lsp.enable({ 'harper_ls' })
-    vim.lsp.enable({ 'pyright' })
     vim.lsp.enable({ 'ruby_lsp' })
     vim.lsp.enable({ 'ts_ls' })
     vim.lsp.enable({ 'bashls' })
     vim.lsp.enable({ 'lua_ls' })
+    vim.lsp.enable({ 'ruff' })
   end,
 }

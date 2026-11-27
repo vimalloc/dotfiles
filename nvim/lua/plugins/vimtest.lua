@@ -14,6 +14,9 @@ return {
     vim.g["test#strategy"] = "neovim"
     vim.g["test#neovim#term_position"] = "horizontal botright 25"
 
+    -- Use venv for python tests
+    vim.g['test#python#pytest#executable'] = './venv/bin/pytest'
+
     -- Allow using escape to move to command mode in terminal and scroll upwards
     vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
   end
