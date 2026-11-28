@@ -77,6 +77,7 @@ vim.opt.spell = true
 
 -- Fix the mistype that I keep hitting when trying to fix a misspelled word
 vim.keymap.set("n", "z-", "z=")
+vim.keymap.set("n", "zu", "zw")
 
 -- Status line
 vim.opt.statusline = "%{expand('%:.')} %=%{v:lua.get_word_count()}, Row %l, Col %c"
